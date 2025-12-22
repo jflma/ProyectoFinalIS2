@@ -76,9 +76,8 @@ public class UserService implements IUserService {
   
   @Transactional(readOnly = true)
   public ForoUser getUserByUsername (String userName) {
-      ForoUser u = userRepository.findForoUserByUsername(userName)
+      return userRepository.findForoUserByUsername(userName)
           .orElseThrow(()-> new UsernameNotFoundException("No se encontro el usuario"));
-     return u;
   }
 
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

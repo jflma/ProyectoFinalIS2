@@ -85,11 +85,9 @@ public class UserService implements IUserService {
 
     List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
 
-    Iterator<Role> it = userFound.getRoles().iterator();
-    while(it.hasNext()){
-        Role role = it.next();
-        authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getName())));
-    }
+  userFound.getRoles().forEach(role -> 
+      authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getName())))
+  );
 
     return new User(userFound.getUsername(),
                     userFound.getPassword(),

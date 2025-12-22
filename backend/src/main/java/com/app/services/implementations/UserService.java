@@ -68,8 +68,8 @@ public class UserService implements IUserService {
 
   @Transactional(readOnly = true)
   public ForoUser getUserbyId(Long id){ 
-    Optional<ForoUser> user = userRepository.findById(id);
-    return user.get(); 
+      return userRepository.findById(id)
+          .orElseThrow();
   }
 
   

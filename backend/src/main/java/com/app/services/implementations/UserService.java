@@ -44,8 +44,7 @@ public class UserService implements IUserService {
   }
 
   @Transactional
-  public ForoUser registerUser(SignupFieldsDTO fields){
-    System.out.println("Registrando usuario con password: " + fields.password()); 
+  public ForoUser registerUser(SignupFieldsDTO fields){ 
 
     try {
       Person personCreated = personService.createPerson(fields.firstName(),fields.lastName(), fields.email(), fields.birthDay());

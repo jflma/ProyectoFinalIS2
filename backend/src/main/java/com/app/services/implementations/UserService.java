@@ -31,10 +31,10 @@ import com.app.services.interfaces.IUserService;
 @Service
 public class UserService implements IUserService {
 
-  public IPersonService personService;
-  public UserRepositoryImp userRepository;
-  public PasswordEncoder passwordEncoder;
-  public JwtUtil jwtUtil;
+  private IPersonService personService;
+  private UserRepositoryImp userRepository;
+  private PasswordEncoder passwordEncoder;
+  private JwtUtil jwtUtil;
 
   public UserService (IPersonService personService, UserRepositoryImp userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
     this.personService=personService;

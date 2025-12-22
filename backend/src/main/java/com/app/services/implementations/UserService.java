@@ -110,8 +110,6 @@ public class UserService implements IUserService {
     }
 
 
-    System.out.println("Password input: " + password + " vs DB: " + userFound.getPassword());
-
     if (!passwordEncoder.matches(password, userFound.getPassword())){
       throw new BadCredentialsException("Invalid username or password!");
     }

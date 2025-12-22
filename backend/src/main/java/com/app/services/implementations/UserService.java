@@ -102,7 +102,6 @@ public class UserService implements IUserService {
   }
 
   public Authentication authenticate (String username, String password) {
-    System.out.println("Intentando autenticar..."); 
 
     UserDetails userFound = this.loadUserByUsername(username);
 

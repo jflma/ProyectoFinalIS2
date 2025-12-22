@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.io.File; 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
@@ -31,6 +33,7 @@ public class PostService implements IPostService {
   private PostRepositoryImp postRepository;
   private UserService userService;
   private EntityManager entityManager;
+  private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
   public PostService (EntryService entryService, PostRepositoryImp postRepository ,UserService userService,EntityManager entityManager) {
     this.entryService = entryService;
@@ -41,85 +44,88 @@ public class PostService implements IPostService {
   }
 
 
-    @Override
-    @Transactional
-    public Post createPost(Long idUser, String title, String content) {
-        try {
-           
-            
-            if (title != null) { 
-                if (content.length() > 0) {
-                    String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-                    ForoUser userFound = userService.getUserByUsername(user);
-                                  
-                    System.out.println("Creando post para usuario: " + user);
-
-                    Entry entrySaved = entryService.createEntry(userFound, content);
-
-                    Post postCreated = new Post();
-                    postCreated.setEntry(entrySaved);
-                    postCreated.setTitle(title);
-
-                    return postRepository.save(postCreated);
-                }
-            }
-            return null; 
-            
-        } catch (Exception e) { 
-            e.printStackTrace(); 
-            throw new RuntimeException(e); 
+  @Override
+  @Transactional
+  public Post createPost(Long idUser, String title, String content) {
+    if (title == null || title.trim().isEmpty()) { 
+             logger.warn("Intento de crear post con título vacío.");
+             return null; 
         }
+    if (content == null || content.isEmpty()) {
+          logger.warn("Intento de crear post con contenido vacío.");
+          return null;
     }
 
-    public List<PostPreviewDTO> getUltimatePost() {
-        return postRepository.findTop10ByOrderByEntryCreatedAt();
-    }
+    try {
+        String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        ForoUser userFound = userService.getUserByUsername(user);
+        
+        logger.info("Creando post para usuario: {}", user);
 
-    @Transactional(readOnly = true)
-    public Post getPostById(Long idPost) {
-        try {
-             return postRepository.findById(idPost).orElseThrow();
-        } catch (Exception e) {
-            return null; 
-        }
-    }
+        Entry entrySaved = entryService.createEntry(userFound, content);
+        Post postCreated = new Post();
+        postCreated.setEntry(entrySaved);
+        postCreated.setTitle(title);
 
-    public PostDetailsDTO getDetailsPostById(Long idPost) {
-        return postRepository.findPostById(idPost);
+        return postRepository.save(postCreated);
+        
+    } catch (Exception e) {
+        // Loguear error con stacktrace y lanzar excepción personalizada
+        logger.error("Error al crear el post para el usuario con ID: {}", idUser, e);
+        throw new CreationException("No se pudo crear el post", e); 
     }
+    
+  }
 
-    // buscador
-    @Override
-    public boolean index() {
-        Boolean encontrado = false; 
-        try {
-            SearchSession searchSession = Search.session(entityManager);
-            searchSession.massIndexer().startAndWait();
-            encontrado = true;
-        } catch (InterruptedException ie) {
-            System.out.println("Error de interrupcion"); 
-            encontrado = false;
-        }
-        return encontrado;
-    }
+  public List<PostPreviewDTO> getUltimatePost() {
+      return postRepository.findTop10ByOrderByEntryCreatedAt();
+  }
 
-    @Override
-    public List<Post> searchWord(String query) {
-        if (query != null) { 
-            SearchSession searchSession = Search.session(entityManager);
-            
-            Set<Post> uniqueResults = new HashSet<>(searchSession.search(Post.class)
-                    .where(f -> f.match()
-                            .fields("title")
-                            .matching(query)
-                            .analyzer("multilingual")
-                            .fuzzy(2)) 
-                    .sort(f -> f.score())
-                    .fetchHits(20)); 
-            
-            return new ArrayList<>(uniqueResults);
-        } else {
-            return null; 
-        }
-    }
+  @Transactional(readOnly = true)
+  public Post getPostById(Long idPost) {
+      try {
+            return postRepository.findById(idPost).orElseThrow();
+      } catch (Exception e) {
+          return null; 
+      }
+  }
+
+  public PostDetailsDTO getDetailsPostById(Long idPost) {
+      return postRepository.findPostById(idPost);
+  }
+
+  // buscador
+  @Override
+  public boolean index() {
+      Boolean encontrado = false; 
+      try {
+          SearchSession searchSession = Search.session(entityManager);
+          searchSession.massIndexer().startAndWait();
+          encontrado = true;
+      } catch (InterruptedException ie) {
+          System.out.println("Error de interrupcion"); 
+          encontrado = false;
+      }
+      return encontrado;
+  }
+
+  @Override
+  public List<Post> searchWord(String query) {
+      if (query != null) { 
+          SearchSession searchSession = Search.session(entityManager);
+          
+          Set<Post> uniqueResults = new HashSet<>(searchSession.search(Post.class)
+                  .where(f -> f.match()
+                          .fields("title")
+                          .matching(query)
+                          .analyzer("multilingual")
+                          .fuzzy(2)) 
+                  .sort(f -> f.score())
+                  .fetchHits(20)); 
+          
+          return new ArrayList<>(uniqueResults);
+      } else {
+          return null; 
+      }
+  }
 }

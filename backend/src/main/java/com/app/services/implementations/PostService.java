@@ -26,20 +26,20 @@ import jakarta.persistence.EntityManager;
 
 @Service
 public class PostService implements IPostService {
-    
-    @Autowired
-    public EntryService entryService;
-    
-    @Autowired
-    public PostRepositoryImp postRepository;
-    
-    @Autowired
-    public UserService userService;
-    
-    @Autowired
-    public EntityManager entityManager;
 
-  
+  private EntryService entryService;
+  private PostRepositoryImp postRepository;
+  private UserService userService;
+  private EntityManager entityManager;
+
+  public PostService (EntryService entryService, PostRepositoryImp postRepository ,UserService userService,EntityManager entityManager) {
+    this.entryService = entryService;
+    this.postRepository = postRepository;
+    this.userService = userService;
+    this.entityManager= entityManager;
+ 
+  }
+
 
     @Override
     @Transactional

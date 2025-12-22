@@ -1,0 +1,61 @@
+---
+import "../static/css/style.css";
+import "../static/js/script.js";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Signup</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Forms Wrapper -->
+      <div class="forms-wrapper">
+        <!-- Login Form -->
+        <div class="form-container login-container">
+          <form method="POST" action="/login">
+            <h2>Login</h2>
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <a href="#">Forgot Password?</a>
+            <button type="submit" class="btn">Login</button>
+            <p>
+              Don't have an account? <span class="toggle">Sign Up</span>
+            </p>
+          </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="form-container signup-container">
+          <form method="POST" action="/signup">
+            <h2>Sign Up</h2>
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit" class="btn">Sign Up</button>
+            <p>
+              Already have an account? <span class="toggle">Sign In</span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      const formsWrapper = document.querySelector(".forms-wrapper");
+      const toggles = document.querySelectorAll(".toggle");
+
+      if (formsWrapper) {
+        toggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            formsWrapper.classList.toggle("move-left");
+          });
+        });
+      } else {
+        console.error("Error: .forms-wrapper element not found!");
+      }
+    </script>
+  </body>
+</html>
+

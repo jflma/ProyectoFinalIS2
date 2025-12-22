@@ -1,0 +1,39 @@
+.env*
+postgres
+jenkins
+sonarqube
+database
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# SonarQube
+.scannerwork/
+
+# Docker
+*.env
+*.local
+docker-compose.override.yml
+
+# Sistema
+*.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+*.bak
+
+# Tests
+test-output/
+coverage/

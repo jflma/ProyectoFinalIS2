@@ -97,35 +97,33 @@ public class PostService implements IPostService {
   // buscador
   @Override
   public boolean index() {
-      Boolean encontrado = false; 
       try {
           SearchSession searchSession = Search.session(entityManager);
           searchSession.massIndexer().startAndWait();
-          encontrado = true;
+          return true;
       } catch (InterruptedException ie) {
-          System.out.println("Error de interrupcion"); 
-          encontrado = false;
+          logger.error("Indexado interrumpido", ie);
+          Thread.currentThread().interrupt(); // Restaurar estado de interrupción
+          return false;
       }
-      return encontrado;
   }
 
   @Override
   public List<Post> searchWord(String query) {
-      if (query != null) { 
-          SearchSession searchSession = Search.session(entityManager);
-          
-          Set<Post> uniqueResults = new HashSet<>(searchSession.search(Post.class)
-                  .where(f -> f.match()
-                          .fields("title")
-                          .matching(query)
-                          .analyzer("multilingual")
-                          .fuzzy(2)) 
-                  .sort(f -> f.score())
-                  .fetchHits(20)); 
-          
-          return new ArrayList<>(uniqueResults);
-      } else {
-          return null; 
+      if (query == null || query.isBlank()) {
+          return new ArrayList<>(); // Retornar lista vacía, no null
       }
+      
+      SearchSession searchSession = Search.session(entityManager);
+      Set<Post> uniqueResults = new HashSet<>(searchSession.search(Post.class)
+              .where(f -> f.match()
+                      .fields("title")
+                      .matching(query)
+                      .analyzer("multilingual")
+                      .fuzzy(2))
+              .sort(f -> f.score())
+              .fetchHits(20));
+      
+      return new ArrayList<>(uniqueResults);
   }
 }

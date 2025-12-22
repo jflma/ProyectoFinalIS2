@@ -54,11 +54,6 @@ public class UserService implements IUserService {
 
       String encodedPassword = passwordEncoder.encode(fields.password());
 
-      /* if(fields.username() == null) {
-          return null;
-       }
-      */
-
       ForoUser userCreated = ForoUser.builder()
                                      .username(fields.username())
                                      .password(encodedPassword)

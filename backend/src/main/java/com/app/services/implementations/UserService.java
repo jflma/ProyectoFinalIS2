@@ -1,8 +1,8 @@
 package com.app.services.implementations;
 
-import java.io.File;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -61,7 +61,6 @@ public class UserService implements IUserService {
                                      .build();
       return userRepository.save(userCreated);
     } catch(Exception e){ 
-      e.printStackTrace(); 
       throw new CreationException("Error al registrar el nuevo usuario");
     }
   }

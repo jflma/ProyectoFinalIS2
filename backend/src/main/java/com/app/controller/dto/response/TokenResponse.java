@@ -8,5 +8,4 @@ import lombok.Getter;
 @SuppressWarnings("unused")
 public class TokenResponse {
   private String token;
-
 }

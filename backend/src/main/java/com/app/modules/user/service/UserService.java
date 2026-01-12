@@ -26,8 +26,6 @@ import com.app.controller.dto.response.TokenResponse;
 import com.app.modules.user.domain.ForoUser;
 import com.app.modules.user.persistence.UserRepositoryImp;
 import com.app.modules.auth.util.JwtUtil;
-import com.app.modules.user.service.IPersonService;
-import com.app.modules.user.service.IUserService;
 
 @Service
 public class UserService implements IUserService {

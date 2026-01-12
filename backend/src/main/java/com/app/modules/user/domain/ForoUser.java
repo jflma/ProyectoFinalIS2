@@ -60,6 +60,7 @@ public class ForoUser {
   @Column(name = "credential_no_expired")
   private boolean credentialNoExpired;
 
+  @Builder.Default
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();

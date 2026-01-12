@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.app.modules.user.domain.Person;
 import com.app.modules.user.persistence.PersonRepositoryImp;
-import com.app.modules.user.service.IPersonService;
 
 @Service
 public class PersonService implements IPersonService {

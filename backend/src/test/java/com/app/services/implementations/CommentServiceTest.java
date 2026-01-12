@@ -14,7 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.app.domain.post.Answer;
 import com.app.domain.post.Comment;
 import com.app.domain.post.Post;
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
+import com.app.modules.user.service.UserService;
 import com.app.repositories.CommentRepositoryImp;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,7 +33,7 @@ class CommentServiceTest {
   private CommentService commentService;
 
   @Test
-  void testPostComement () {
+  void testPostComement() {
     Long idPost = 1L;
     Long idUser = 1L;
     String content = "comentario";
@@ -58,7 +59,7 @@ class CommentServiceTest {
   }
 
   @Test
-  void testAnswerComment () {
+  void testAnswerComment() {
     Long idAnswer = 1L;
     Long idUser = 1L;
     String content = "comentario";
@@ -78,7 +79,7 @@ class CommentServiceTest {
     when(commentRepository.save(any(Comment.class))).thenReturn(comment);
 
     Comment commentCreated = commentService.answerComment(idAnswer, idUser, content);
-    
+
     assertNotNull(commentCreated);
     assertEquals(content, commentCreated.getContent());
   }

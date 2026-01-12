@@ -21,12 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.domain.post.Entry;
 import com.app.domain.post.Post;
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
+import com.app.modules.user.service.UserService;
 import com.app.repositories.PostRepositoryImp;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTest {
-  
+
   @Mock
   private EntryService entryService;
   @Mock
@@ -43,16 +44,15 @@ class PostServiceTest {
   @Mock
   private SecurityContext securityContext;
 
-
-   @BeforeEach
-  public void setUp () {
+  @BeforeEach
+  public void setUp() {
     lenient().when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
   }
 
   @Test
   @Transactional
-  void testCreatePost () {
+  void testCreatePost() {
     Long idUser = 1L;
     String title = "titulo";
     String content = "content";
@@ -67,7 +67,7 @@ class PostServiceTest {
     Post post = new Post();
     post.setEntry(entry);
 
-    lenient().when(authentication.getPrincipal()).thenReturn(username); 
+    lenient().when(authentication.getPrincipal()).thenReturn(username);
     when(userService.getUserByUsername(username)).thenReturn(user);
     when(entryService.createEntry(user, content)).thenReturn(entry);
     when(postRepository.save(any(Post.class))).thenReturn(post);
@@ -80,7 +80,7 @@ class PostServiceTest {
 
   @Test
   @Transactional
-  void testGetPostById () {
+  void testGetPostById() {
     Long idPost = 1L;
     Post post = new Post();
     post.setId(idPost);

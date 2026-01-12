@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.domain.post.Entry;
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
 import com.app.exceptions.CreationException;
 import com.app.repositories.EntryRepositoryImp;
 import com.app.services.interfaces.IEntryService;
+import com.app.modules.user.service.IUserService;
 
 @Service
 public class EntryService implements IEntryService {

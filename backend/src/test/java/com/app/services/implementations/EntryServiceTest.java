@@ -1,4 +1,5 @@
 package com.app.services.implementations;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,12 +21,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.domain.post.Entry;
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
+import com.app.modules.user.service.UserService;
 import com.app.exceptions.CreationException;
 import com.app.repositories.EntryRepositoryImp;
 
 @ExtendWith(MockitoExtension.class)
-  class EntryServiceTest {
+class EntryServiceTest {
   @Mock
   private EntryRepositoryImp entryRepository;
 
@@ -34,45 +36,44 @@ import com.app.repositories.EntryRepositoryImp;
 
   @Test
   @Transactional
-  void testCreateEntry () {
+  void testCreateEntry() {
     String username = "testUser";
     String content = "contenido";
 
-    ForoUser user= new ForoUser();
+    ForoUser user = new ForoUser();
     user.setUsername(username);
 
     Entry entry = new Entry();
     entry.setUser(user);
     entry.setContent(content);
 
-
-    //when 
+    // when
     when(entryRepository.save(any(Entry.class))).thenReturn(entry);
 
-    //act
+    // act
     Entry entryCreated = entryService.createEntry(user, content);
 
-    //assert
+    // assert
     assertNotNull(entryCreated);
   }
 
   @Test
   @Transactional
-  void testAddCommentToEntry () {
+  void testAddCommentToEntry() {
     Long idEntry = 1L;
 
     Entry entry = new Entry();
     entry.setId(idEntry);
     entry.setComments(0);
 
-    //when
+    // when
     when(entryRepository.existsById(idEntry)).thenReturn(true);
     when(entryRepository.findById(idEntry)).thenReturn(Optional.of(entry));
 
-    //Act
+    // Act
     entryService.addCommentToEntry(idEntry);
 
-    //Assert
+    // Assert
 
     assertEquals(1, entry.getComments());
     verify(entryRepository, times(1)).save(entry);
@@ -80,34 +81,33 @@ import com.app.repositories.EntryRepositoryImp;
 
   @Test
   @Transactional
-  void testAddCommentToEntry_EntryDoesNotExist () {
+  void testAddCommentToEntry_EntryDoesNotExist() {
     Long idEntry = 1L;
 
-    //when 
+    // when
     when(entryRepository.existsById(idEntry)).thenReturn(false);
 
-    //Act and Assert
+    // Act and Assert
     CreationException thrown = assertThrows(
-      CreationException.class, 
-      () -> entryService.addCommentToEntry(idEntry),"nose we");
-    
+        CreationException.class,
+        () -> entryService.addCommentToEntry(idEntry), "nose we");
+
     assertTrue(thrown.getMessage().contains("No se encontro el entry"));
     verify(entryRepository, never()).save(any(Entry.class));
   }
+
   @Test
   @Transactional
   void testAddCommentToEntry_OptionalEmpty() {
-      Long idEntry = 1L;
+    Long idEntry = 1L;
 
-      when(entryRepository.existsById(idEntry)).thenReturn(true);
-      when(entryRepository.findById(idEntry)).thenReturn(Optional.empty());
+    when(entryRepository.existsById(idEntry)).thenReturn(true);
+    when(entryRepository.findById(idEntry)).thenReturn(Optional.empty());
 
-      // Act & Assert
-      assertThrows(CreationException.class, () -> {
-          entryService.addCommentToEntry(idEntry);
-      });
+    // Act & Assert
+    assertThrows(CreationException.class, () -> {
+      entryService.addCommentToEntry(idEntry);
+    });
   }
-
-  
 
 }

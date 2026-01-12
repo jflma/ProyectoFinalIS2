@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.controller.dto.LoginRequestDTO;
 import com.app.controller.dto.SignupFieldsDTO;
 import com.app.controller.dto.response.TokenResponse;
-import com.app.domain.user.ForoUser;
-import com.app.services.interfaces.IUserService;
+import com.app.modules.user.domain.ForoUser;
+import com.app.modules.user.service.IUserService;
 
 @RestController
 @CrossOrigin("http://localhost:3000/")
@@ -22,23 +22,22 @@ public class AuthController {
 
   private IUserService userService;
 
-
-  public AuthController(IUserService userService ){
-    this.userService=userService;
+  public AuthController(IUserService userService) {
+    this.userService = userService;
   }
 
   @GetMapping("/hello")
-  public String test () {
+  public String test() {
     return "Endpoint /auth run!";
   }
 
   @PostMapping("/signup")
-  public ForoUser signupUser (@RequestBody SignupFieldsDTO signupFields) {
+  public ForoUser signupUser(@RequestBody SignupFieldsDTO signupFields) {
     return userService.registerUser(signupFields);
   }
 
   @PostMapping("/signin")
-  public TokenResponse loginUser (@RequestBody LoginRequestDTO loginRequest) {
+  public TokenResponse loginUser(@RequestBody LoginRequestDTO loginRequest) {
     return userService.loginUser(loginRequest);
   }
 

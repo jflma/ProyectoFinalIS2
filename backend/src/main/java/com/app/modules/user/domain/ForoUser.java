@@ -1,4 +1,4 @@
-package com.app.domain.user;
+package com.app.modules.user.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -34,22 +34,21 @@ import lombok.Setter;
 @Table(name = "users")
 public class ForoUser {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id; 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-   @Column(unique = true)
-   private String username;
+  @Column(unique = true)
+  private String username;
 
-   @JsonIgnore
-   private String password;
+  @JsonIgnore
+  private String password;
 
-   @OneToOne
-   @JoinColumn(name = "id_person", referencedColumnName = "id", 
-   foreignKey = @ForeignKey(name = "FK_person_user"), nullable = false)
-   private Person person;
+  @OneToOne
+  @JoinColumn(name = "id_person", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_person_user"), nullable = false)
+  private Person person;
 
-   @Column(name = "is_enabled")
+  @Column(name = "is_enabled")
   private boolean isEnabled;
 
   @Column(name = "account_no_expired")
@@ -62,7 +61,7 @@ public class ForoUser {
   private boolean credentialNoExpired;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+  @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
 }

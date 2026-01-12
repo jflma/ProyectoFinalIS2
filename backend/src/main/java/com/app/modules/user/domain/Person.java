@@ -1,4 +1,4 @@
-package com.app.domain.user;
+package com.app.modules.user.domain;
 
 import java.time.LocalDate;
 
@@ -40,4 +40,3 @@ public class Person {
   private LocalDate dateOfBirthDay;
 
 }
-

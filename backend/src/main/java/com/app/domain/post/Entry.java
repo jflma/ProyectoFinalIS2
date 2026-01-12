@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -34,13 +34,13 @@ public class Entry {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  
+
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id_user",referencedColumnName = "id",foreignKey = @ForeignKey(name = "FK_user_entry"),nullable = false)
+  @JoinColumn(name = "id_user", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_user_entry"), nullable = false)
   private ForoUser user;
 
-  @Column(nullable = false,columnDefinition = "TEXT")
+  @Column(nullable = false, columnDefinition = "TEXT")
   private String content;
 
   @Column(columnDefinition = "INT DEFAULT 0")
@@ -53,11 +53,11 @@ public class Entry {
   private int comments;
 
   @CreationTimestamp
-  @Column(name="created_at",updatable = false, nullable = false)
+  @Column(name = "created_at", updatable = false, nullable = false)
   private LocalDateTime createdAt;
 
   @CreationTimestamp
-  @Column(name = "last_update",nullable = false)
+  @Column(name = "last_update", nullable = false)
   private LocalDateTime lastUpdate;
-  
+
 }

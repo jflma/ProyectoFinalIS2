@@ -1,6 +1,6 @@
 package com.app.domain.post;
 
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;

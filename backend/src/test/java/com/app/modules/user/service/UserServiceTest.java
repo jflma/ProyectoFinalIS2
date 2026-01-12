@@ -1,4 +1,5 @@
-package com.app.services.implementations;
+package com.app.modules.user.service;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,12 +24,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.app.controller.dto.LoginRequestDTO;
 import com.app.controller.dto.SignupFieldsDTO;
 import com.app.controller.dto.response.TokenResponse;
-import com.app.domain.user.ForoUser;
-import com.app.domain.user.Person;
-import com.app.domain.user.Role;
-import com.app.repositories.UserRepositoryImp;
+import com.app.modules.user.domain.ForoUser;
+import com.app.modules.user.domain.Person;
+import com.app.modules.user.domain.Role;
+import com.app.modules.user.persistence.UserRepositoryImp;
 import com.app.resources.JwtUtil;
-import com.app.services.interfaces.IPersonService;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -46,7 +46,7 @@ class UserServiceTest {
   private UserService userService;
 
   @Test
-  void testRegisterUser () {
+  void testRegisterUser() {
     LocalDate birthday = LocalDate.now();
     String firstName = "nombre1";
     String lastName = "nombre2";
@@ -57,51 +57,49 @@ class UserServiceTest {
     Person person = new Person();
     person.setEmail(email);
 
-
-    
-    SignupFieldsDTO fields = new SignupFieldsDTO(firstName,lastName,email,birthday,userName,password);
+    SignupFieldsDTO fields = new SignupFieldsDTO(firstName, lastName, email, birthday, userName, password);
 
     ForoUser user = new ForoUser();
     user.setUsername(userName);
     user.setPerson(person);
 
-    //when
-    when(personService.createPerson(firstName,lastName,email,birthday)).thenReturn(person);
+    // when
+    when(personService.createPerson(firstName, lastName, email, birthday)).thenReturn(person);
     when(userRepository.save(any(ForoUser.class))).thenReturn(user);
 
-    //act
+    // act
     ForoUser userCreated = userService.registerUser(fields);
 
     // assert
     assertNotNull(userCreated);
     assertEquals(user.getUsername(), userCreated.getUsername());
-    
+
   }
 
   @Test
-  void testGetUserbyId () {
+  void testGetUserbyId() {
     Long id = 1L;
     ForoUser user = new ForoUser();
     user.setId(id);
 
-    //when 
+    // when
     when(userRepository.findById(id)).thenReturn(Optional.of(user));
 
-    //act
+    // act
     ForoUser userFound = userService.getUserbyId(id);
 
-    //assert 
+    // assert
     assertNotNull(userFound);
     assertEquals(id, userFound.getId());
   }
 
   @Test
-  void testGetUserByUsername () {
+  void testGetUserByUsername() {
     String username = "username";
     ForoUser user = new ForoUser();
     user.setUsername(username);
 
-    //when 
+    // when
     when(userRepository.findForoUserByUsername(username)).thenReturn(Optional.of(user));
 
     ForoUser userFound = userService.getUserByUsername(username);
@@ -111,7 +109,7 @@ class UserServiceTest {
   }
 
   @Test
-  void testLoadUserByUsername () {
+  void testLoadUserByUsername() {
     String username = "test1";
     String password = "password";
 
@@ -131,7 +129,7 @@ class UserServiceTest {
   }
 
   @Test
-  void testAuthenticate () {
+  void testAuthenticate() {
     String username = "test1";
     String password = "password";
     String role = "ADMIN";
@@ -143,10 +141,9 @@ class UserServiceTest {
     user.setPassword(password);
     user.setRoles(Set.of(admin));
 
-
     List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
     authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role)));
-    
+
     when(userRepository.findForoUserByUsername(username)).thenReturn(Optional.of(user));
     when(passwordEncoder.matches(password, password)).thenReturn(true);
 
@@ -157,7 +154,7 @@ class UserServiceTest {
   }
 
   @Test
-  void testLoginUser () {
+  void testLoginUser() {
     String username = "test1";
     String password = "password";
     String token = "token";

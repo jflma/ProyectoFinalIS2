@@ -1,4 +1,5 @@
-package com.app.services.implementations;
+package com.app.modules.user.service;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,8 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.app.domain.user.Person;
-import com.app.repositories.PersonRepositoryImp;
+import com.app.modules.user.domain.Person;
+import com.app.modules.user.persistence.PersonRepositoryImp;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
@@ -24,7 +25,7 @@ class PersonServiceTest {
   private PersonService personService;
 
   @Test
-  void testCreatePerson () {
+  void testCreatePerson() {
     String firstName = "name";
     String lastName = "name2";
     String email = "email@google.com";
@@ -43,9 +44,6 @@ class PersonServiceTest {
     assertNotNull(personCreated);
     assertEquals(email, personCreated.getEmail());
 
-
   }
 
-
 }
-

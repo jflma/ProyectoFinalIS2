@@ -12,10 +12,12 @@ import com.app.domain.post.Answer;
 import com.app.domain.post.Comment;
 import com.app.domain.post.Entry;
 import com.app.domain.post.Post;
-import com.app.domain.user.ForoUser;
+import com.app.modules.user.domain.ForoUser;
 import com.app.exceptions.CreationException;
 import com.app.repositories.CommentRepositoryImp;
 import com.app.services.interfaces.ICommentService;
+import com.app.modules.user.service.UserService;
+import com.app.modules.user.service.IUserService;
 
 @Service
 public class CommentService implements ICommentService {

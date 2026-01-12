@@ -3,9 +3,9 @@ package com.app.modules.user.service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.app.controller.dto.LoginRequestDTO;
-import com.app.controller.dto.SignupFieldsDTO;
-import com.app.controller.dto.response.TokenResponse;
+import com.app.modules.auth.controller.dto.LoginRequestDTO;
+import com.app.modules.auth.controller.dto.SignupFieldsDTO;
+import com.app.modules.auth.controller.dto.response.TokenResponse;
 import com.app.modules.user.domain.ForoUser;
 
 public interface IUserService extends UserDetailsService {

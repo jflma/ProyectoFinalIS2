@@ -1,6 +1,4 @@
-package com.app.controller.dto.response;
-
-import java.time.LocalDateTime;
+package com.app.modules.post.controller.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,14 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @SuppressWarnings("unused")
-public class PostDetailsDTO {
+public class PostPreviewDTO {
   private Long id;
-  private Long idEntry;
   private String title;
-
+  private int views;
+  private int answers;
   private String content;
-  private LocalDateTime createdAt;
-
-  private String username;
-
+  private int upVotes;
+  private int downVotes;
 }

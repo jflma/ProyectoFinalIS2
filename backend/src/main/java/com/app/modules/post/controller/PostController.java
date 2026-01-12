@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.controller.dto.CreatePostFieldsDTO;
-import com.app.controller.dto.response.PostDetailsDTO;
-import com.app.controller.dto.response.PostPreviewDTO;
+import com.app.modules.post.controller.dto.CreatePostFieldsDTO;
+import com.app.modules.post.controller.dto.response.PostDetailsDTO;
+import com.app.modules.post.controller.dto.response.PostPreviewDTO;
 import com.app.modules.post.domain.Post;
 import com.app.modules.post.service.PostService;
 import com.app.modules.post.service.IPostService;

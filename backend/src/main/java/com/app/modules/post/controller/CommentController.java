@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.controller.dto.CommentPostFieldsDTO;
-import com.app.controller.dto.response.CommentDetailsDTO;
+import com.app.modules.post.controller.dto.CommentPostFieldsDTO;
+import com.app.modules.post.controller.dto.response.CommentDetailsDTO;
 import com.app.modules.post.domain.Comment;
 import com.app.modules.post.service.CommentService;
 import com.app.modules.post.service.ICommentService;

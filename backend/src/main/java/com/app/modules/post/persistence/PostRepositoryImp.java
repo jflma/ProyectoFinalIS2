@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.app.controller.dto.response.PostDetailsDTO;
-import com.app.controller.dto.response.PostPreviewDTO;
+import com.app.modules.post.controller.dto.response.PostDetailsDTO;
+import com.app.modules.post.controller.dto.response.PostPreviewDTO;
 import com.app.modules.post.domain.Post;
 
 @Repository

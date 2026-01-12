@@ -2,7 +2,7 @@ package com.app.modules.post.service;
 
 import java.util.List;
 
-import com.app.controller.dto.response.CommentDetailsDTO;
+import com.app.modules.post.controller.dto.response.CommentDetailsDTO;
 import com.app.modules.post.domain.Comment;
 
 public interface ICommentService {

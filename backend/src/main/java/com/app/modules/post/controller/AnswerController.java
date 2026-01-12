@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.controller.dto.CreateAnswerFieldsDTO;
+import com.app.modules.post.controller.dto.CreateAnswerFieldsDTO;
 import com.app.modules.post.domain.Answer;
 import com.app.modules.post.service.AnswerService;
 import com.app.modules.post.service.IAnswerService;

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.controller.dto.LoginRequestDTO;
-import com.app.controller.dto.SignupFieldsDTO;
-import com.app.controller.dto.response.TokenResponse;
+import com.app.modules.auth.controller.dto.LoginRequestDTO;
+import com.app.modules.auth.controller.dto.SignupFieldsDTO;
+import com.app.modules.auth.controller.dto.response.TokenResponse;
 import com.app.modules.user.domain.ForoUser;
 import com.app.modules.user.service.IUserService;
 

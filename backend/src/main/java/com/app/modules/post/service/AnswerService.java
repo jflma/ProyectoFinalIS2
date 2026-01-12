@@ -11,7 +11,6 @@ import com.app.modules.user.domain.ForoUser;
 import com.app.modules.user.service.UserService;
 import com.app.exceptions.CreationException;
 import com.app.modules.post.persistence.AnswerRepositoryImp;
-import com.app.modules.user.service.IUserService;
 
 @Service
 public class AnswerService implements IAnswerService {

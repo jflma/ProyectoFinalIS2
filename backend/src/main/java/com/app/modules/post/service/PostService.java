@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.controller.dto.response.PostDetailsDTO;
-import com.app.controller.dto.response.PostPreviewDTO;
+import com.app.modules.post.controller.dto.response.PostDetailsDTO;
+import com.app.modules.post.controller.dto.response.PostPreviewDTO;
 import com.app.modules.post.domain.Entry;
 import com.app.modules.post.domain.Post;
 import com.app.modules.user.domain.ForoUser;

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.controller.dto.response.CommentDetailsDTO;
+import com.app.modules.post.controller.dto.response.CommentDetailsDTO;
 import com.app.modules.post.domain.Answer;
 import com.app.modules.post.domain.Comment;
 import com.app.modules.post.domain.Entry;
@@ -16,7 +16,6 @@ import com.app.modules.user.domain.ForoUser;
 import com.app.exceptions.CreationException;
 import com.app.modules.post.persistence.CommentRepositoryImp;
 import com.app.modules.user.service.UserService;
-import com.app.modules.user.service.IUserService;
 
 @Service
 public class CommentService implements ICommentService {

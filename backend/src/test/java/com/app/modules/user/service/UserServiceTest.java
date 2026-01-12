@@ -21,9 +21,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.app.controller.dto.LoginRequestDTO;
-import com.app.controller.dto.SignupFieldsDTO;
-import com.app.controller.dto.response.TokenResponse;
+import com.app.modules.auth.controller.dto.LoginRequestDTO;
+import com.app.modules.auth.controller.dto.SignupFieldsDTO;
+import com.app.modules.auth.controller.dto.response.TokenResponse;
 import com.app.modules.user.domain.ForoUser;
 import com.app.modules.user.domain.Person;
 import com.app.modules.user.domain.Role;

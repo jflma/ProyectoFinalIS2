@@ -28,7 +28,7 @@ import com.app.modules.user.domain.ForoUser;
 import com.app.modules.user.domain.Person;
 import com.app.modules.user.domain.Role;
 import com.app.modules.user.persistence.UserRepositoryImp;
-import com.app.resources.JwtUtil;
+import com.app.modules.auth.util.JwtUtil;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {

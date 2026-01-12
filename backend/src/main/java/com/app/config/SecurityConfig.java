@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.app.config.filter.JwtTokenValidatorFilter;
-import com.app.resources.JwtUtil;
+import com.app.modules.auth.util.JwtUtil;
 import com.app.modules.user.service.UserService;
 
 @Configuration

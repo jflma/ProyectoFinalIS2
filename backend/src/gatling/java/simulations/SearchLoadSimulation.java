@@ -12,7 +12,7 @@ public class SearchLoadSimulation extends Simulation {
 
         // Configuración del protocolo HTTP
         HttpProtocolBuilder httpProtocol = http
-                        .baseUrl("http://localhost:8081")
+                        .baseUrl("http://localhost:8080")
                         .acceptHeader("application/json");
 
         // Feeder con términos de búsqueda diversos

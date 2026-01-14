@@ -10,7 +10,7 @@ public class PostReadLoadSimulation extends Simulation {
 
   // Configuración del protocolo HTTP
   HttpProtocolBuilder httpProtocol = http
-      .baseUrl("http://localhost:8081")
+      .baseUrl("http://localhost:8080")
       .acceptHeader("application/json");
 
   // Escenario de lectura de posts

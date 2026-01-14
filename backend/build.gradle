@@ -51,6 +51,9 @@ dependencies {
 
 	// H2 Database
     runtimeOnly 'com.h2database:h2:2.3.230'
+
+    // Functional Testing
+    testImplementation 'org.springframework.boot:spring-boot-test-autoconfigure'
 }
 
 sonarqube {

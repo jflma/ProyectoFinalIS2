@@ -18,4 +18,5 @@ public class PostResponseDTO {
     private int answers;
     private String authorUsername;
     private LocalDateTime createdAt;
+    private Long idEntry;
 }

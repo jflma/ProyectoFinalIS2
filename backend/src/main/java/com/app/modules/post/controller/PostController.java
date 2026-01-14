@@ -92,7 +92,7 @@ public class PostController {
         .content(oldDetails.getContent())
         .authorUsername(oldDetails.getUsername())
         .createdAt(oldDetails.getCreatedAt())
-        // Other fields not available in old DTO
+        .idEntry(oldDetails.getIdEntry())
         .build();
 
     return ResponseEntity.ok(response);

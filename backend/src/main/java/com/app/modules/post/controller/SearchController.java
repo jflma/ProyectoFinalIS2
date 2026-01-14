@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.PostResponseDTO;
 import com.app.modules.post.domain.Post;
-import com.app.modules.post.service.PostService;
+
 import com.app.modules.post.service.IPostService;
 
 @CrossOrigin("http://localhost:3000/")
@@ -24,7 +24,7 @@ public class SearchController {
 
   private IPostService postService;
 
-  public SearchController(PostService postService) {
+  public SearchController(IPostService postService) {
     this.postService = postService;
   }
 

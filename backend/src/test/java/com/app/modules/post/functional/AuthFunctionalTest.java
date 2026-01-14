@@ -1,7 +1,6 @@
 package com.app.modules.post.functional;
 
 import com.app.modules.auth.controller.dto.SignupFieldsDTO;
-import com.app.modules.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,38 +22,32 @@ public class AuthFunctionalTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private UserService userService; // To clean up or verify if needed
-
     @Test
     public void shouldRegisterUserSuccessfully() throws Exception {
-        // Given a new user payload
         SignupFieldsDTO newUser = new SignupFieldsDTO(
-                "testUserFunc",
-                "password123",
                 "Test",
                 "User",
-                "testuserfunc@example.com",
-                "1990-01-01");
+                "testuserfunc" + System.currentTimeMillis() + "@example.com", // Unique email
+                java.time.LocalDate.parse("1990-01-01"),
+                "testUserFunc" + System.currentTimeMillis(), // Unique username
+                "password123");
 
-        // When performing a POST to /auth/signup
         mockMvc.perform(post("/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newUser)))
-                // Then expect 201 Created
                 .andExpect(status().isCreated());
     }
 
     @Test
     public void shouldFailToRegisterDuplicateUser() throws Exception {
-        // Given an existing user payload (reusing the one above or creating first)
+        String uniqueSuffix = String.valueOf(System.currentTimeMillis());
         SignupFieldsDTO newUser = new SignupFieldsDTO(
-                "duplicateUser",
-                "password123",
                 "Duplicate",
                 "User",
-                "duplicate@example.com",
-                "1990-01-01");
+                "duplicate" + uniqueSuffix + "@example.com",
+                java.time.LocalDate.parse("1990-01-01"),
+                "duplicateUser" + uniqueSuffix,
+                "password123");
 
         // Initial registration
         mockMvc.perform(post("/auth/signup")
@@ -66,7 +59,6 @@ public class AuthFunctionalTest {
         mockMvc.perform(post("/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newUser)))
-                // Then expect error (Logic might vary, assuming Bad Request or Conflict)
                 .andExpect(status().isBadRequest());
     }
 }

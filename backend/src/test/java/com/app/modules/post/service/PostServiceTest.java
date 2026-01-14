@@ -22,18 +22,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.modules.post.domain.Entry;
 import com.app.modules.post.domain.Post;
 import com.app.modules.user.domain.ForoUser;
-import com.app.modules.user.service.UserService;
+import com.app.modules.post.service.IEntryService;
+import com.app.modules.user.service.IUserService;
 import com.app.modules.post.persistence.PostRepositoryImp;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTest {
 
   @Mock
-  private EntryService entryService;
+  private IEntryService entryService;
   @Mock
   private PostRepositoryImp postRepository;
   @Mock
-  private UserService userService;
+  private IUserService userService;
 
   @InjectMocks
   private PostService postService;
@@ -67,7 +68,7 @@ class PostServiceTest {
     Post post = new Post();
     post.setEntry(entry);
 
-    lenient().when(authentication.getPrincipal()).thenReturn(username);
+    lenient().when(authentication.getName()).thenReturn(username);
     when(userService.getUserByUsername(username)).thenReturn(user);
     when(entryService.createEntry(user, content)).thenReturn(entry);
     when(postRepository.save(any(Post.class))).thenReturn(post);

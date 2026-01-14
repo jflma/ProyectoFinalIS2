@@ -21,20 +21,20 @@ import com.app.modules.post.domain.Post;
 import com.app.modules.user.domain.ForoUser;
 import com.app.exceptions.CreationException;
 import com.app.modules.post.persistence.PostRepositoryImp;
-import com.app.modules.user.service.UserService;
+import com.app.modules.user.service.IUserService;
 
 import jakarta.persistence.EntityManager;
 
 @Service
 public class PostService implements IPostService {
 
-    private EntryService entryService;
+    private IEntryService entryService;
     private PostRepositoryImp postRepository;
-    private UserService userService;
+    private IUserService userService;
     private EntityManager entityManager;
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
-    public PostService(EntryService entryService, PostRepositoryImp postRepository, UserService userService,
+    public PostService(IEntryService entryService, PostRepositoryImp postRepository, IUserService userService,
             EntityManager entityManager) {
         this.entryService = entryService;
         this.postRepository = postRepository;
@@ -56,7 +56,7 @@ public class PostService implements IPostService {
         }
 
         try {
-            String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+            String user = SecurityContextHolder.getContext().getAuthentication().getName();
             ForoUser userFound = userService.getUserByUsername(user);
 
             logger.info("Creando post para usuario: {}", user);

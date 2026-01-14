@@ -36,7 +36,7 @@ public class CommentControllerTest extends BaseIntegrationTest {
 
         when(commentService.getCommentsFromPost(1L)).thenReturn(List.of(details));
 
-        mockMvc.perform(get("/comment/entry/1")
+        mockMvc.perform(get("/comment/getComments/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].content").value("Comment Content"))
@@ -61,7 +61,7 @@ public class CommentControllerTest extends BaseIntegrationTest {
 
         when(commentService.postComment(anyLong(), anyLong(), anyString())).thenReturn(comment);
 
-        mockMvc.perform(post("/comment")
+        mockMvc.perform(post("/comment/post")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(fields)))
                 .andExpect(status().isCreated())
@@ -73,7 +73,7 @@ public class CommentControllerTest extends BaseIntegrationTest {
     void testCreateCommentUnauthorized() throws Exception {
         CommentPostFieldsDTO fields = new CommentPostFieldsDTO(1L, 10L, "New Comment");
 
-        mockMvc.perform(post("/comment")
+        mockMvc.perform(post("/comment/post")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(fields)))
                 .andExpect(status().isUnauthorized()); // Assuming 401/403

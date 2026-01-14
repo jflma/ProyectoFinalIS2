@@ -18,7 +18,7 @@ import com.app.dto.CommentResponseDTO;
 import com.app.modules.post.controller.dto.CommentPostFieldsDTO;
 import com.app.modules.post.controller.dto.response.CommentDetailsDTO;
 import com.app.modules.post.domain.Comment;
-import com.app.modules.post.service.CommentService;
+
 import com.app.modules.post.service.ICommentService;
 
 @RestController
@@ -28,7 +28,7 @@ public class CommentController {
 
   private ICommentService commentService;
 
-  public CommentController(CommentService commentService) {
+  public CommentController(ICommentService commentService) {
     this.commentService = commentService;
   }
 

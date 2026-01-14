@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.app.config.filter.JwtTokenValidatorFilter;
 import com.app.modules.auth.util.JwtUtil;
-import com.app.modules.user.service.UserService;
+import com.app.modules.user.service.IUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +42,7 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationProvider authenticationProvider(UserService userServiceImp) {
+  public AuthenticationProvider authenticationProvider(IUserService userServiceImp) {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
     provider.setPasswordEncoder(passwordEncoder());
     provider.setUserDetailsService(userServiceImp);

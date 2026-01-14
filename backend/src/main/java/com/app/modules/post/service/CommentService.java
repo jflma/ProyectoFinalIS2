@@ -15,7 +15,7 @@ import com.app.modules.post.domain.Post;
 import com.app.modules.user.domain.ForoUser;
 import com.app.exceptions.CreationException;
 import com.app.modules.post.persistence.CommentRepositoryImp;
-import com.app.modules.user.service.UserService;
+import com.app.modules.user.service.IUserService;
 
 @Service
 public class CommentService implements ICommentService {
@@ -23,13 +23,13 @@ public class CommentService implements ICommentService {
     private static final Logger logger = LoggerFactory.getLogger(CommentService.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
-    private PostService postService;
+    private IPostService postService;
 
     @Autowired
-    private AnswerService answerService;
+    private IAnswerService answerService;
 
     @Autowired
     private CommentRepositoryImp commentRepository;

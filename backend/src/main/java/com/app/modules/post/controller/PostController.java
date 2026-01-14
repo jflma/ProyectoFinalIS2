@@ -19,7 +19,6 @@ import com.app.dto.PostResponseDTO;
 import com.app.modules.post.controller.dto.CreatePostFieldsDTO;
 import com.app.modules.post.domain.Post;
 import com.app.modules.post.service.IPostService;
-import com.app.modules.post.service.PostService;
 
 @CrossOrigin("http://localhost:3000/")
 @RestController
@@ -28,7 +27,7 @@ public class PostController {
 
   private IPostService postService;
 
-  public PostController(PostService postService) {
+  public PostController(IPostService postService) {
     this.postService = postService;
   }
 

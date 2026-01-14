@@ -1,9 +1,6 @@
 pipeline {
     agent any
 
-    agent any
-
-
 
     triggers {
         // Dispara el pipeline cuando GitHub envía un evento de PUSH (requiere Webhook en GitHub)

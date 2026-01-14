@@ -38,9 +38,9 @@ pipeline {
                     // Requiere que el servidor SonarQube esté configurado en Jenkins con el nombre 'SonarQube'
                     // Si falla la conexión, el bloque withSonarQubeEnv suele manejarlo o fallar el stage.
                     // Se usa catchError por si el servidor no está disponible.
-                    catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                        withSonarQubeEnv('SonarQube') {
-                            script {
+                    script {
+                        try {
+                            withSonarQubeEnv('SonarQube') {
                                 echo 'Ejecutando análisis de calidad de código...'
                                 if (isUnix()) {
                                     sh './gradlew sonar'
@@ -48,6 +48,13 @@ pipeline {
                                     bat 'gradlew sonar'
                                 }
                             }
+                        } catch (Exception e) {
+                            echo "ERROR CRITICO EN SONARQUBE: ${e.getMessage()}"
+                            echo "POSIBLES CAUSAS:"
+                            echo "1. No has configurado el servidor 'SonarQube' en Administrar Jenkins -> System."
+                            echo "2. SonarQube no esta corriendo en localhost:9000."
+                            echo "3. El token es invalido."
+                            currentBuild.result = 'UNSTABLE'
                         }
                     }
                 }

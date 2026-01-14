@@ -16,7 +16,7 @@ public class SearchLoadSimulation extends Simulation {
                         .acceptHeader("application/json");
 
         // Feeder con términos de búsqueda diversos
-        FeederBuilder<String> searchTerms = listFeeder(
+        FeederBuilder<Object> searchTerms = listFeeder(
                         List.of(
                                         Map.of("query", "java"),
                                         Map.of("query", "spring"),

@@ -218,6 +218,8 @@ backend/
 ## 6. Servicios REST Disponibles
 
 ### 📖 Documentación OpenAPI / Swagger
+<img width="1009" height="896" alt="Screenshot 2026-01-14 103924" src="https://github.com/user-attachments/assets/8508fedd-48d8-4d17-a5d7-bb52c8a4d42b" />
+
 
 ### 🔐 Módulo: Authentication (`/auth`)
 

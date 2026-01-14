@@ -43,9 +43,9 @@ pipeline {
                             withSonarQubeEnv('SonarQube') {
                                 echo 'Ejecutando análisis de calidad de código...'
                                 if (isUnix()) {
-                                    sh './gradlew sonar'
+                                    sh './gradlew sonar -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086'
                                 } else {
-                                    bat 'gradlew sonar'
+                                    bat 'gradlew sonar -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086'
                                 }
                             }
                         } catch (Exception e) {

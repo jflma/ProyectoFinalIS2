@@ -37,3 +37,9 @@ Thumbs.db
 # Tests
 test-output/
 coverage/
+
+# Hibernate Search
+**/sepomex-indices/
+
+# Logs de construcción manuales
+build_*.txt

@@ -23,64 +23,63 @@ import com.app.modules.user.service.IUserService;
 
 public class UserControllerTest extends BaseIntegrationTest {
 
-    @MockBean
-    private IUserService userService;
+        @MockBean
+        private IUserService userService;
 
-    @Test
-    @WithMockUser(username = "admin", roles = { "ADMIN" })
-    void testRoleAdmin() throws Exception {
-        mockMvc.perform(get("/user/role"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Hi you has role ADMIN"));
-    }
+        @Test
+        @WithMockUser(username = "admin", roles = { "ADMIN" })
+        void testRoleAdmin() throws Exception {
+                mockMvc.perform(get("/user/role"))
+                                .andExpect(status().isOk())
+                                .andExpect(content().string("Hi you has role ADMIN"));
+        }
 
-    @Test
-    @WithMockUser(username = "user", roles = { "USER" })
-    void testRoleAdminForbidden() throws Exception {
-        mockMvc.perform(get("/user/role"))
-                .andExpect(status().isForbidden());
-    }
+        @Test
+        @WithMockUser(username = "user", roles = { "USER" })
+        void testRoleAdminForbidden() throws Exception {
+                mockMvc.perform(get("/user/role"))
+                                .andExpect(status().isForbidden());
+        }
 
-    @Test
-    void testHelloWorld() throws Exception {
-        mockMvc.perform(get("/user/helloworld"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Hello world !"));
-    }
+        @Test
+        void testHelloWorld() throws Exception {
+                mockMvc.perform(get("/user/helloworld"))
+                                .andExpect(status().isOk())
+                                .andExpect(content().string("Hello world !"));
+        }
 
-    @Test
-    @WithMockUser(username = "testuser", roles = { "USER" })
-    void testCheckStatus() throws Exception {
-        Person person = Person.builder()
-                .firstName("Test")
-                .lastName("User")
-                .email("test@example.com")
-                .build();
+        @Test
+        @WithMockUser(username = "testuser", roles = { "USER" })
+        void testCheckStatus() throws Exception {
+                Person person = Person.builder()
+                                .firstName("Test")
+                                .lastName("User")
+                                .email("test@example.com")
+                                .build();
 
-        Role role = new Role();
-        role.setName("USER");
+                Role role = new Role();
+                role.setName("USER");
 
-        ForoUser user = ForoUser.builder()
-                .id(1L)
-                .username("testuser")
-                .person(person)
-                .roles(Set.of(role))
-                .build();
+                ForoUser user = ForoUser.builder()
+                                .id(1L)
+                                .username("testuser")
+                                .person(person)
+                                .roles(Set.of(role))
+                                .build();
 
-        when(userService.getUserByUsername("testuser")).thenReturn(user);
+                when(userService.getUserByUsername("testuser")).thenReturn(user);
 
-        mockMvc.perform(get("/user/check-status")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("testuser"))
-                .andExpect(jsonPath("$.email").value("test@example.com"))
-                .andExpect(jsonPath("$.roles[0]").value("USER"));
-    }
+                mockMvc.perform(get("/user/check-status")
+                                .contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.username").value("testuser"))
+                                .andExpect(jsonPath("$.email").value("test@example.com"))
+                                .andExpect(jsonPath("$.roles[0]").value("USER"));
+        }
 
-    @Test
-    void testCheckStatusUnauthorized() throws Exception {
-        mockMvc.perform(get("/user/check-status"))
-                .andExpect(status().isUnauthorized()); // Or 403 depending on config, but unauthenticated should be
-                                                       // 401/403
-    }
+        @Test
+        void testCheckStatusUnauthorized() throws Exception {
+                mockMvc.perform(get("/user/check-status"))
+                                .andExpect(status().isForbidden());
+        }
 }

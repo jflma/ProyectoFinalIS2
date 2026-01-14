@@ -8,10 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import com.app.modules.post.service.AnswerService;
-import com.app.modules.post.service.EntryService;
-import com.app.modules.post.service.PostService;
-import com.app.modules.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,16 +24,19 @@ import com.app.modules.post.domain.Entry;
 import com.app.modules.post.domain.Post;
 import com.app.modules.user.domain.ForoUser;
 import com.app.modules.post.persistence.AnswerRepositoryImp;
+import com.app.modules.user.service.IUserService;
+import com.app.modules.post.service.IEntryService;
+import com.app.modules.post.service.IPostService;
 
 @ExtendWith(MockitoExtension.class)
 class AnswerServiceTest {
 
     @Mock
-    private UserService userService;
+    private IUserService userService;
     @Mock
-    private PostService postService;
+    private IPostService postService;
     @Mock
-    private EntryService entryService;
+    private IEntryService entryService;
     @Mock
     private AnswerRepositoryImp answerRepository;
 
@@ -79,11 +78,11 @@ class AnswerServiceTest {
 
         // when
 
-        lenient().when(authentication.getPrincipal()).thenReturn(username);
+        lenient().when(authentication.getName()).thenReturn(username);
         when(userService.getUserByUsername(username)).thenReturn(user);
         when(entryService.createEntry(user, content)).thenReturn(entry);
         when(postService.getPostById(postIdToReply)).thenReturn(post);
-        when(answerRepository.save(any(Answer.class))).thenReturn(answer);// provamos que hac
+        when(answerRepository.save(any(Answer.class))).thenReturn(answer);
 
         // then
 

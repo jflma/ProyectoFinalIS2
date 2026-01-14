@@ -8,19 +8,19 @@ import com.app.modules.post.domain.Answer;
 import com.app.modules.post.domain.Entry;
 import com.app.modules.post.domain.Post;
 import com.app.modules.user.domain.ForoUser;
-import com.app.modules.user.service.UserService;
+import com.app.modules.user.service.IUserService;
 import com.app.exceptions.CreationException;
 import com.app.modules.post.persistence.AnswerRepositoryImp;
 
 @Service
 public class AnswerService implements IAnswerService {
 
-  private UserService userService;
-  private PostService postService;
-  private EntryService entryService;
+  private IUserService userService;
+  private IPostService postService;
+  private IEntryService entryService;
   private AnswerRepositoryImp answerRepository;
 
-  public AnswerService(UserService userService, PostService postService, EntryService entryService,
+  public AnswerService(IUserService userService, IPostService postService, IEntryService entryService,
       AnswerRepositoryImp answerRepository) {
     this.userService = userService;
     this.postService = postService;
@@ -32,7 +32,7 @@ public class AnswerService implements IAnswerService {
   @Transactional
   public Answer createAnswer(Long postIdToReply, String content) {
     try {
-      String userByUsername = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+      String userByUsername = SecurityContextHolder.getContext().getAuthentication().getName();
       ForoUser user = userService.getUserByUsername(userByUsername);
       Entry entryCreated = entryService.createEntry(user, content);
       Post postToReply = postService.getPostById(postIdToReply);

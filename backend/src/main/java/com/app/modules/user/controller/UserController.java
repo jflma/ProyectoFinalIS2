@@ -41,7 +41,7 @@ public class UserController {
   @GetMapping("/check-status")
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<UserResponseDTO> checkStatus() {
-    String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
     ForoUser user = userService.getUserByUsername(username);
 
     UserResponseDTO response = UserResponseDTO.builder()

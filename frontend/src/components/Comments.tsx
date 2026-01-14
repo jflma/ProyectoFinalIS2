@@ -6,31 +6,32 @@ import { Separator } from './ui/separator'
 import { CommentService } from '@/services/comment.service'
 interface CommentResponse {
   id: number;
-  autorUsername: string;
+  authorUsername: string;
   content: string;
 }
 
 interface Props {
   idEntry: number;
-  postId:number;
+  postId: number;
 }
 
-export const Comments = ({idEntry, postId}: Props) => {
+export const Comments = ({ idEntry, postId }: Props) => {
   const [comments, setComments] = useState<CommentResponse[]>([])
   useEffect(() => {
     const getComments = async () => {
+      if (!idEntry) return [] // Avoid fetch if entry ID is missing
       const res = await CommentService.getComments(idEntry)
       return res
     }
 
     const result = getComments()
-    result.then(comments =>setComments(comments))
-  },[idEntry])
+    result.then(comments => setComments(comments))
+  }, [idEntry])
 
   return (
     <div className='flex flex-col w-[clamp(500px,100%,700px)] gap-1'>
-      {comments.map(comment => <div key={comment.id}><CommentItem key={comment.id} comment={comment}/><Separator className='m-2'/></div>)}
-      <AddComment postId={postId}/>
+      {comments.map(comment => <div key={comment.id}><CommentItem key={comment.id} comment={comment} /><Separator className='m-2' /></div>)}
+      <AddComment postId={postId} onCommentAdded={(newComment) => setComments([...comments, newComment])} />
     </div>
   )
 }

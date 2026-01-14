@@ -18,7 +18,7 @@ import com.app.dto.CommentResponseDTO;
 import com.app.modules.post.controller.dto.CommentPostFieldsDTO;
 import com.app.modules.post.controller.dto.response.CommentDetailsDTO;
 import com.app.modules.post.domain.Comment;
-import com.app.modules.post.service.CommentService;
+
 import com.app.modules.post.service.ICommentService;
 
 @RestController
@@ -28,12 +28,12 @@ public class CommentController {
 
   private ICommentService commentService;
 
-  public CommentController(CommentService commentService) {
+  public CommentController(ICommentService commentService) {
     this.commentService = commentService;
   }
 
   @PreAuthorize("permitAll()")
-  @GetMapping("/entry/{idEntry}")
+  @GetMapping("/getComments/{idEntry}")
   public ResponseEntity<List<CommentResponseDTO>> getCommentsFromEntry(@PathVariable Long idEntry) {
     List<CommentDetailsDTO> oldList = commentService.getCommentsFromPost(idEntry);
 
@@ -50,7 +50,7 @@ public class CommentController {
   }
 
   @PreAuthorize("hasRole('USER')")
-  @PostMapping
+  @PostMapping("/post")
   public ResponseEntity<CommentResponseDTO> commentPost(@RequestBody CommentPostFieldsDTO fields) {
     Comment comment = commentService.postComment(fields.idPost(), fields.idUser(), fields.content());
 

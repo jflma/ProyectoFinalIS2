@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.AnswerResponseDTO;
 import com.app.modules.post.controller.dto.CreateAnswerFieldsDTO;
 import com.app.modules.post.domain.Answer;
-import com.app.modules.post.service.AnswerService;
+
 import com.app.modules.post.service.IAnswerService;
 
 @RestController
@@ -19,7 +19,7 @@ import com.app.modules.post.service.IAnswerService;
 public class AnswerController {
   private IAnswerService answerService;
 
-  public AnswerController(AnswerService answerService) {
+  public AnswerController(IAnswerService answerService) {
     this.answerService = answerService;
   }
 

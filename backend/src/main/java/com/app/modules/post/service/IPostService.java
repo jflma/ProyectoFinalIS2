@@ -17,4 +17,5 @@ public interface IPostService {
 
   public PostDetailsDTO getDetailsPostById(Long idPost);
 
+  public Post getPostById(Long idPost);
 }

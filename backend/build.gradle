@@ -71,3 +71,31 @@ tasks.withType(JavaCompile) {
 test {
     useJUnitPlatform()
 }
+
+// Tarea para Pruebas Unitarias (excluye funcionales, seguridad y simulaciones)
+task unitTest(type: Test) {
+    description = 'Runs unit tests.'
+    group = 'verification'
+    useJUnitPlatform()
+    exclude '**/*FunctionalTest.class'
+    exclude '**/*SecurityTest.class'
+    exclude '**/simulations/**' 
+}
+
+// Tarea para Pruebas Funcionales
+task functionalTest(type: Test) {
+    description = 'Runs functional tests.'
+    group = 'verification'
+    useJUnitPlatform()
+    include '**/*FunctionalTest.class'
+    shouldRunAfter unitTest
+}
+
+// Tarea para Pruebas de Seguridad
+task securityTest(type: Test) {
+    description = 'Runs security tests.'
+    group = 'verification'
+    useJUnitPlatform()
+    include '**/*SecurityTest.class'
+    shouldRunAfter functionalTest
+}

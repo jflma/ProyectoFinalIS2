@@ -1,15 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        // La integración con SonarQube requiere configurar el servidor 'SonarQube' en Jenkins
-        // Asegúrate de tener los plugins necesarios instalados:
-        // - Pipeline Maven Integration / Gradle
-        // - SonarQube Scanner
-        // - Gatling
-        // - OWASP Dependency-Check
-        // - JUnit
-    }
+    agent any
+
+
 
     triggers {
         // Dispara el pipeline cuando GitHub envía un evento de PUSH (requiere Webhook en GitHub)

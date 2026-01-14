@@ -1,254 +1,514 @@
-# 🎓 Proyecto Final IS2 - Sistema de Foro EPCC
+# 🎓 FOROEPCC - Foro Académico para Estudiantes de Ciencia de la Computación
 
-Sistema integral de foro académico desarrollado con tecnología moderna.
+<div align="center">
 
-## 🚀 Inicio Rápido
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3.1-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-CI/CD-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
+![SonarQube](https://img.shields.io/badge/SonarQube-Analysis-4E9BCD?style=for-the-badge&logo=sonarqube&logoColor=white)
 
-```bash
-# Opción 1: Script automático (Windows)
-run-project.bat both
+**Proyecto Final - Ingeniería de Software II**  
+Universidad Nacional de San Agustín de Arequipa
 
-# Opción 2: Manual - Terminal 1 (Backend)
-cd backend && ./gradlew bootRun
+[Repositorio GitHub](https://github.com/jflma/ProyectoFinalIS2.git)
 
-# Opción 2: Manual - Terminal 2 (Frontend)
-cd frontend && npm run dev
-```
-
-**Acceso:**
-- Backend: http://localhost:8080
-- Frontend: http://localhost:3000
+</div>
 
 ---
 
-## 📚 Documentación
+## 📋 Tabla de Contenidos
 
-| Documento | Descripción |
-|-----------|-------------|
-| **[📄 RESUMEN_EJECUTIVO.md](./RESUMEN_EJECUTIVO.md)** | ⭐ **COMIENZA AQUÍ** - Resumen de issues y cómo ejecutar |
-| **[📊 ANALISIS_ISSUES.md](./ANALISIS_ISSUES.md)** | Análisis detallado de ambos issues (ResponseEntity y MockMvc) |
-| **[🚀 QUICK_START.md](./QUICK_START.md)** | Guía rápida de comandos y endpoints |
-| **[📈 DASHBOARD.md](./DASHBOARD.md)** | Estado general del proyecto y métricas |
-
----
-
-## 🏗️ Arquitectura
-
-### Backend (Java/Spring Boot)
-- **Framework:** Spring Boot 3.3.1
-- **Seguridad:** Spring Security + JWT (Auth0)
-- **Base de Datos:** PostgreSQL + H2 (testing)
-- **Búsqueda:** Hibernate Search + Lucene
-- **Estructura:** Organizado en módulos (auth, user, post)
-
-### Frontend (Next.js)
-- **Framework:** Next.js 14.2.5
-- **UI:** React 18 + TailwindCSS
-- **Estado:** Zustand
-- **HTTP:** Axios
-- **Formularios:** React Hook Form
+1. [Equipo de Trabajo](#1-equipo-de-trabajo)
+2. [Propósito del Proyecto](#2-propósito-del-proyecto)
+3. [Funcionalidades de Alto Nivel](#3-funcionalidades-de-alto-nivel)
+4. [Modelo de Dominio](#4-modelo-de-dominio)
+5. [Visión General de Arquitectura](#5-visión-general-de-arquitectura)
+6. [Servicios REST Disponibles](#6-servicios-rest-disponibles)
+7. [Pipeline CI/CD](#7-pipeline-cicd)
+8. [Instalación y Ejecución](#8-instalación-y-ejecución)
+9. [Capturas de Pantalla](#9-capturas-de-pantalla)
 
 ---
 
-## ✨ Características
+## 1. Equipo de Trabajo
 
-- ✅ Autenticación y autorización con roles
-- ✅ CRUD de posts y preguntas
-- ✅ Sistema de comentarios y respuestas
-- ✅ Búsqueda full-text
-- ✅ Editor de Markdown
-- ✅ Interfaz responsiva
-- ✅ WebSockets preparado
-- ✅ Validación de entrada
+### 👥 **FOROEPCC**
 
----
+### 👥 Integrantes del equipo
 
-## 📊 Estado de Issues
+- **Huayhua Carlos, Lenin** 
+- **Lizarve Mamani, Johan** 
+- **Mamani Yucra, Edilson** 
 
-### 1. Estandarizar ResponseEntity
-```
-Estado: ⚠️ 40-50% COMPLETADO
-✅ AuthController, PostController completados
-❌ UserController, CommentController, AnswerController, SearchController
-Prioridad: 🔴 CRÍTICA
-```
 
-### 2. Pruebas de Integración MockMvc
-```
-Estado: ⚠️ 60-70% COMPLETADO
-✅ AuthControllerTest, PostControllerTest implementados
-❌ Tests para User, Comment, Answer, Search controllers
-Prioridad: 🟡 ALTA
-```
+## 2. Propósito del Proyecto
 
-👉 **[Ver análisis completo →](./ANALISIS_ISSUES.md)**
+### 🎯 Objetivo General
+
+**FOROEPCC** es una plataforma web tipo foro académico diseñada específicamente para estudiantes de la Escuela Profesional de Ciencia de la Computación (EPCC) de la UNSA. El sistema permite a los estudiantes:
+
+- **Compartir conocimiento** mediante publicaciones y respuestas.
+- **Resolver dudas académicas** de forma colaborativa.
+- **Interactuar** con otros estudiantes a través de comentarios y votos.
+- **Buscar información** utilizando un motor de búsqueda integrado.
+
+### 🔑 Objetivos Específicos
+
+1. Implementar un sistema de autenticación seguro con JWT.
+2. Desarrollar un CRUD completo para posts, respuestas y comentarios.
+3. Aplicar prácticas de **Domain-Driven Design (DDD)** y **Clean Architecture**.
+4. Establecer un pipeline CI/CD completo con Jenkins.
+5. Garantizar la calidad del código mediante análisis estático y pruebas automatizadas.
 
 ---
 
-## 🔧 Requisitos
+## 3. Funcionalidades de Alto Nivel
 
-- Java 21+
-- Node.js 18+
-- PostgreSQL 12+ (o usar H2 para testing)
-- npm o yarn
+### 📊 Diagrama de Casos de Uso
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        SISTEMA FOROEPCC                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   ┌─────────┐                                                   │
+│   │ Usuario │                                                   │
+│   │ Anónimo │──────┬──► Registrarse                             │
+│   └─────────┘      │                                            │
+│                    └──► Ver Posts Públicos                      │
+│                                                                  │
+│   ┌─────────┐                                                   │
+│   │ Usuario │──────┬──► Iniciar Sesión                          │
+│   │Registrado│     ├──► Crear Post                              │
+│   └─────────┘      ├──► Responder Post                          │
+│                    ├──► Comentar Respuesta                      │
+│                    ├──► Buscar Posts                            │
+│                    ├──► Ver Detalles de Post                    │
+│                    ├──► Editar Perfil                           │
+│                    └──► Cerrar Sesión                           │
+│                                                                  │
+│   ┌─────────┐                                                   │
+│   │  Admin  │──────┬──► Gestionar Usuarios                      │
+│   └─────────┘      ├──► Moderar Contenido                       │
+│                    └──► Ver Estadísticas                        │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### ✨ Funcionalidades Principales
+
+| Módulo | Funcionalidad | Descripción |
+|--------|---------------|-------------|
+| **Auth** | Registro | Creación de cuenta con validación de datos |
+| **Auth** | Login/Logout | Autenticación mediante JWT |
+| **Post** | CRUD Posts | Crear, leer, actualizar y eliminar publicaciones |
+| **Post** | Respuestas | Sistema de respuestas a posts |
+| **Post** | Comentarios | Comentarios anidados en respuestas |
+| **Search** | Búsqueda | Motor de búsqueda full-text con Hibernate Search |
+| **User** | Perfil | Gestión de información del usuario |
 
 ---
 
-## 📁 Estructura del Proyecto
+## 4. Modelo de Dominio
+
+### 📐 Diagrama de Clases Principal
 
 ```
-ProyectoFinalIS2/
-├── backend/                    ← Servidor Spring Boot
-│   ├── src/main/java/com/app/
-│   │   ├── modules/           ← Módulos por dominio
-│   │   │   ├── auth/
-│   │   │   ├── user/
-│   │   │   └── post/
-│   │   ├── config/
-│   │   ├── exceptions/
-│   │   └── dto/
-│   ├── src/test/java/         ← Tests de integración
-│   └── build.gradle
+┌──────────────────┐       ┌──────────────────┐
+│    ForoUser      │       │      Person      │
+├──────────────────┤       ├──────────────────┤
+│ - id: Long       │ 1   1 │ - id: Long       │
+│ - username: String│◄─────►│ - firstName: String│
+│ - password: String│       │ - lastName: String│
+│ - roles: Set<Role>│       │ - email: String  │
+│ - person: Person │       │ - createAt: Date │
+│ - createAt: Date │       └──────────────────┘
+└────────┬─────────┘
+         │ 1
+         │
+         │ *
+┌────────▼─────────┐       ┌──────────────────┐
+│      Post        │       │      Entry       │
+├──────────────────┤       ├──────────────────┤
+│ - id: Long       │ 1   1 │ - id: Long       │
+│ - title: String  │◄─────►│ - content: String│
+│ - views: Integer │       │ - image: String  │
+│ - user: ForoUser │       │ - createAt: Date │
+│ - entry: Entry   │       └──────────────────┘
+│ - answers: List  │
+│ - createAt: Date │
+└────────┬─────────┘
+         │ 1
+         │
+         │ *
+┌────────▼─────────┐
+│     Answer       │
+├──────────────────┤       ┌──────────────────┐
+│ - id: Long       │ 1   * │    Comment       │
+│ - content: String│◄─────►├──────────────────┤
+│ - user: ForoUser │       │ - id: Long       │
+│ - post: Post     │       │ - content: String│
+│ - comments: List │       │ - user: ForoUser │
+│ - createAt: Date │       │ - answer: Answer │
+└──────────────────┘       │ - createAt: Date │
+                           └──────────────────┘
+```
+
+### 📦 Módulos Principales
+
+| Módulo | Responsabilidad | Entidades |
+|--------|-----------------|-----------|
+| **auth** | Autenticación y autorización (JWT) | ForoUser, Role, Person |
+| **post** | Gestión de publicaciones, respuestas y comentarios | Post, Entry, Answer, Comment |
+| **user** | Gestión de perfiles de usuario | ForoUser, Person |
+
+### 📁 Carpetas de Soporte
+
+| Carpeta | Responsabilidad |
+|---------|-----------------|
+| **config** | Configuraciones de Spring Security, WebSocket, CORS |
+| **dto** | Data Transfer Objects compartidos |
+| **exceptions** | Manejadores globales de excepciones |
+| **shared** | Utilidades y componentes transversales |
+
+---
+
+## 5. Visión General de Arquitectura
+
+### 🏗️ Enfoque: DDD + Clean Architecture
+
+El proyecto sigue los principios de **Domain-Driven Design (DDD)** combinados con **Clean Architecture**, organizando el código en capas bien definidas:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      CAPA DE PRESENTACIÓN                        │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │ Controllers │  │    DTOs     │  │  Responses  │              │
+│  └──────┬──────┘  └─────────────┘  └─────────────┘              │
+├─────────┼───────────────────────────────────────────────────────┤
+│         ▼           CAPA DE APLICACIÓN                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │  Services   │  │ Interfaces  │  │   Mappers   │              │
+│  └──────┬──────┘  └─────────────┘  └─────────────┘              │
+├─────────┼───────────────────────────────────────────────────────┤
+│         ▼             CAPA DE DOMINIO                           │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │  Entities   │  │   Value     │  │  Domain     │              │
+│  │  (Modelos)  │  │   Objects   │  │  Events     │              │
+│  └──────┬──────┘  └─────────────┘  └─────────────┘              │
+├─────────┼───────────────────────────────────────────────────────┤
+│         ▼         CAPA DE INFRAESTRUCTURA                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │Repositories │  │  Security   │  │   Config    │              │
+│  │    (JPA)    │  │   (JWT)     │  │  (Spring)   │              │
+│  └─────────────┘  └─────────────┘  └─────────────┘              │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 📁 Diagrama de Paquetes
+
+```
+backend/
+├── src/main/java/com/app/
+│   ├── modules/
+│   │   ├── auth/
+│   │   │   ├── controller/     # AuthController
+│   │   │   ├── dto/            # LoginDTO, SignupDTO, TokenDTO
+│   │   │   ├── model/          # ForoUser, Role, Person
+│   │   │   ├── repository/     # UserRepository, RoleRepository
+│   │   │   └── service/        # UserService, JwtService
+│   │   │
+│   │   ├── post/
+│   │   │   ├── controller/     # PostController, AnswerController, CommentController
+│   │   │   ├── dto/            # PostDTO, AnswerDTO, CommentDTO
+│   │   │   ├── model/          # Post, Entry, Answer, Comment
+│   │   │   ├── repository/     # PostRepository, AnswerRepository
+│   │   │   └── service/        # PostService, AnswerService, CommentService
+│   │   │
+│   │   └── search/
+│   │       ├── controller/     # SearchController
+│   │       └── service/        # SearchService (Hibernate Search)
+│   │
+│   ├── shared/
+│   │   ├── config/             # SecurityConfig, WebConfig
+│   │   ├── exception/          # GlobalExceptionHandler
+│   │   └── utils/              # JwtUtils, ValidationUtils
+│   │
+│   └── BackendApplication.java
 │
-├── frontend/                   ← Cliente Next.js
-│   ├── src/
-│   │   ├── app/               ← Páginas
-│   │   ├── components/        ← Componentes
-│   │   ├── services/          ← Servicios HTTP
-│   │   └── storages/          ← Estado (Zustand)
-│   └── package.json
+├── src/test/java/com/app/
+│   ├── modules/post/
+│   │   ├── controller/         # Tests unitarios de controllers
+│   │   └── functional/         # Tests funcionales de integración
+│   │
+│   └── security/               # Tests de seguridad y autorización
 │
-├── README.md                  ← Este archivo
-├── RESUMEN_EJECUTIVO.md       ← Resumen de issues
-├── ANALISIS_ISSUES.md         ← Análisis detallado
-├── QUICK_START.md             ← Guía rápida
-├── DASHBOARD.md               ← Métricas del proyecto
-├── run-project.bat            ← Script Windows
-└── run-project.ps1            ← Script PowerShell
+└── src/gatling/java/simulations/  # Tests de rendimiento
+    ├── LoginLoadSimulation.java
+    ├── PostReadLoadSimulation.java
+    └── SearchLoadSimulation.java
 ```
 
 ---
 
-## 🔑 Endpoints Principales
+## 6. Servicios REST Disponibles
 
-### Autenticación (`/auth`)
-```bash
-POST   /auth/signup      # Registrar usuario
-POST   /auth/signin      # Iniciar sesión
-GET    /auth/hello       # Test endpoint
+### 📖 Documentación OpenAPI / Swagger
+
+La API sigue el estándar **OpenAPI 3.0** y puede visualizarse con Swagger UI en:
+```
+http://localhost:8080/swagger-ui.html
 ```
 
-### Posts (`/post`)
-```bash
-POST   /post/create          # Crear post (requiere USER)
-GET    /post/ultimatePost    # Obtener últimos posts
-GET    /post/details/{id}    # Detalles de un post
-```
+### 🔐 Módulo: Authentication (`/auth`)
 
-### Usuario (`/user`)
-```bash
-GET    /user/check-status    # Estado del usuario (requiere USER)
-GET    /user/role           # Solo admins (requiere ADMIN)
-GET    /user/helloworld     # Test endpoint
-```
+**Propósito:** Gestión de registro, inicio de sesión y tokens JWT.
 
-### Comentarios (`/comment`)
-```bash
-POST   /comment/post                # Crear comentario (requiere USER)
-GET    /comment/getComments/{id}    # Obtener comentarios
-```
+| Método | Endpoint | Descripción | Parámetros |
+|--------|----------|-------------|------------|
+| `POST` | `/auth/signup` | Registrar nuevo usuario | `SignupFieldsDTO` (body) |
+| `POST` | `/auth/signin` | Iniciar sesión | `LoginRequestDTO` (body) |
+| `GET` | `/auth/hello` | Verificar estado del servicio | - |
 
-### Respuestas (`/answer`)
-```bash
-POST   /answer/create    # Crear respuesta (requiere USER)
-```
+**Modelos Involucrados:**
+```json
+// SignupFieldsDTO
+{
+  "username": "string",
+  "password": "string",
+  "email": "string",
+  "firstName": "string",
+  "lastName": "string"
+}
 
-### Búsqueda (`/search`)
-```bash
-GET    /search/posts?keyword=...    # Buscar posts
-GET    /search/posts/index         # Indexar posts
+// LoginRequestDTO
+{
+  "username": "string",
+  "password": "string"
+}
+
+// TokenResponseDTO
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+}
 ```
 
 ---
 
-## 🧪 Pruebas
+### 📝 Módulo: Posts (`/post`)
 
+**Propósito:** CRUD completo de publicaciones del foro.
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| `POST` | `/post/create` | Crear nueva publicación | ✅ JWT |
+| `GET` | `/post/ultimatePost` | Obtener posts recientes | ❌ Público |
+| `GET` | `/post/details/{id}` | Ver detalles de un post | ❌ Público |
+
+**Modelos Involucrados:**
+```json
+// CreatePostDTO
+{
+  "title": "string",
+  "content": "string",
+  "image": "string (opcional)"
+}
+
+// PostResponseDTO
+{
+  "id": 1,
+  "title": "string",
+  "content": "string",
+  "authorUsername": "string",
+  "views": 0,
+  "answers": 0,
+  "createdAt": "2026-01-14T00:00:00Z"
+}
+```
+
+---
+
+### 💬 Módulo: Answers (`/answer`)
+
+**Propósito:** Gestión de respuestas a publicaciones.
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| `POST` | `/answer/create` | Crear respuesta a post | ✅ JWT |
+| `GET` | `/answer/post/{postId}` | Obtener respuestas de un post | ❌ Público |
+
+---
+
+### 🗨️ Módulo: Comments (`/comment`)
+
+**Propósito:** Gestión de comentarios en respuestas.
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| `POST` | `/comment/create` | Crear comentario | ✅ JWT |
+| `GET` | `/comment/answer/{answerId}` | Obtener comentarios | ❌ Público |
+
+---
+
+### 🔍 Módulo: Search (`/search`)
+
+**Propósito:** Motor de búsqueda full-text sobre posts.
+
+| Método | Endpoint | Descripción | Parámetros |
+|--------|----------|-------------|------------|
+| `GET` | `/search` | Buscar posts | `query` (string) |
+
+---
+
+## 7. Pipeline CI/CD
+
+### 🔄 Visión General del Pipeline
+
+El proyecto implementa un pipeline de **Integración y Entrega Continua** utilizando **Jenkins**, activado automáticamente mediante webhooks de GitHub.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           PIPELINE CI/CD                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐               │
+│  │ Checkout │───►│  Build   │───►│ SonarQube│───►│  Unit    │               │
+│  │   SCM    │    │ (Gradle) │    │ Analysis │    │  Tests   │               │
+│  └──────────┘    └──────────┘    └──────────┘    └──────────┘               │
+│                                                        │                     │
+│       ┌────────────────────────────────────────────────┘                    │
+│       ▼                                                                      │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐               │
+│  │Functional│───►│ Security │───►│   Perf   │───►│ Package  │               │
+│  │  Tests   │    │  Tests   │    │  Tests   │    │  (JAR)   │               │
+│  └──────────┘    └──────────┘    └──────────┘    └──────────┘               │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 📋 Etapas del Pipeline
+
+#### 1️⃣ Construcción Automática
+- **Herramienta:** Gradle 8.11
+- **Comando:** `./gradlew clean assemble -x test`
+- **Descripción:** Compila el código fuente y genera los artefactos sin ejecutar tests.
+
+#### 2️⃣ Análisis Estático de Código
+- **Herramienta:** SonarQube + sonar-scanner
+- **Comando:** `./gradlew sonar`
+- **Métricas Analizadas:**
+  - Code Smells
+  - Vulnerabilidades de seguridad
+  - Cobertura de código
+  - Duplicación de código
+  - Complejidad ciclomática
+
+#### 3️⃣ Pruebas Unitarias
+- **Framework:** JUnit 5 + Mockito
+- **Comando:** `./gradlew unitTest`
+- **Cobertura:** Controllers, Services, Repositories
+- **Ejemplos:**
+  - `AnswerControllerTest.java`
+  - `CommentControllerTest.java`
+  - `PostControllerTest.java`
+
+#### 4️⃣ Pruebas Funcionales
+- **Framework:** Spring Boot Test + MockMvc
+- **Comando:** `./gradlew functionalTest`
+- **Descripción:** Pruebas de integración end-to-end.
+- **Ejemplos:**
+  - `AuthFunctionalTest.java` - Flujo de registro de usuarios
+  - `PostFunctionalTest.java` - Flujo de creación de posts
+
+#### 5️⃣ Pruebas de Seguridad
+- **Framework:** Spring Security Test + OWASP Dependency Check
+- **Comandos:**
+  - `./gradlew securityTest` - Tests de autorización
+  - `./gradlew dependencyCheckAnalyze` - Análisis de vulnerabilidades CVE
+- **Ejemplos:**
+  - `AuthorizationSecurityTest.java` - Verificación de endpoints protegidos
+
+#### 6️⃣ Pruebas de Rendimiento
+- **Framework:** Gatling (Java DSL)
+- **Comando:** `./gradlew gatlingRun`
+- **Simulaciones:**
+  | Simulación | Descripción | Usuarios Virtuales |
+  |------------|-------------|-------------------|
+  | `LoginLoadSimulation` | Stress test de login | 50 usuarios/seg |
+  | `PostReadLoadSimulation` | Carga de lectura de posts | 100 usuarios/seg |
+  | `SearchLoadSimulation` | Estrés del motor de búsqueda | 30 usuarios/seg |
+
+#### 7️⃣ Empaquetado
+- **Herramienta:** Gradle + Spring Boot
+- **Comando:** `./gradlew bootJar`
+- **Artefacto:** `backend-0.0.1-SNAPSHOT.jar`
+
+---
+
+### 🐛 Gestión de Issues
+
+El proyecto utiliza **GitHub Issues** y **GitHub Projects** para el seguimiento de:
+
+- 🐞 **Bugs:** Errores identificados durante desarrollo y testing.
+- ✨ **Features:** Nuevas funcionalidades solicitadas.
+- 📝 **Tasks:** Tareas técnicas y de documentación.
+- 🔧 **Improvements:** Mejoras de código existente.
+
+**Tablero Kanban:** [GitHub Projects](https://github.com/jflma/ProyectoFinalIS2/projects)
+
+---
+
+## 8. Instalación y Ejecución
+
+### 📋 Requisitos Previos
+
+- **Java 21** (JDK)
+- **Node.js 18+** (para el frontend)
+- **PostgreSQL 15**
+- **Docker Desktop** (opcional, para contenedores)
+- **Jenkins** (para CI/CD)
+
+### 🚀 Ejecución Local
+
+#### Backend
 ```bash
-# Ejecutar todos los tests
 cd backend
-./gradlew test
-
-# Ejecutar test específico
-./gradlew test --tests "*AuthControllerTest"
-
-# Con cobertura
-./gradlew test jacocoTestReport
-
-# Análisis SonarQube
-./gradlew sonarqube
+./gradlew bootRun
 ```
+El servidor estará disponible en: `http://localhost:8080`
 
----
-
-## 🐛 Solución de Problemas
-
-### Puerto 8080 en uso
-```powershell
-netstat -ano | findstr :8080
-taskkill /PID <PID> /F
-```
-
-### Puerto 3000 en uso
-```powershell
-netstat -ano | findstr :3000
-taskkill /PID <PID> /F
-```
-
-### Limpiar proyecto
+#### Frontend
 ```bash
-cd backend && ./gradlew clean
-cd frontend && rm -r node_modules && npm install
+cd frontend
+npm install
+npm run dev
 ```
+La aplicación estará disponible en: `http://localhost:3000`
+
+
+
+## 9. Capturas de Pantalla
+
+### 🔐 Registro de Usuario
+![Register](https://github.com/user-attachments/assets/ad64e07d-08ba-48ed-9c63-a2373f1a7cac)
+
+### 🔑 Inicio de Sesión
+![Login](https://github.com/user-attachments/assets/e4a25060-4fc3-41b6-9fb5-caf1274693be)
+
+### 🏠 Página Principal
+![Home](https://github.com/user-attachments/assets/10ac0246-79b9-4a3d-866b-b2f225b7ddc5)
+
+### 📝 Vista de Posts
+![Posts](https://github.com/user-attachments/assets/edf04f70-329c-4725-bf74-dde9beba7134)
 
 ---
 
-## 📋 Checklist de Desarrollo
+<div align="center">
 
-- [x] Autenticación
-- [x] Autorización con roles
-- [x] CRUD de posts
-- [x] Comentarios y respuestas
-- [x] Búsqueda full-text
-- [x] Interfaz frontend
-- [ ] Estandarizar ResponseEntity (⚠️ 50%)
-- [ ] Tests completos (⚠️ 70%)
-- [ ] Documentación API
+**FOROEPCC** © 2026 - Todos los derechos reservados
 
----
+Desarrollado con ❤️ por el equipo FOROEPCC
 
-## 🎯 Próximas Acciones
-
-1. **Lee:** [RESUMEN_EJECUTIVO.md](./RESUMEN_EJECUTIVO.md) (5 min)
-2. **Entiende:** [ANALISIS_ISSUES.md](./ANALISIS_ISSUES.md) (15 min)
-3. **Ejecuta:** `run-project.bat both` (1 min)
-4. **Desarrolla:** Completa los items pendientes (3-5 horas)
-
----
-
-## 📞 Contacto / Soporte
-
-Para dudas sobre:
-- **Cómo ejecutar:** Ver [QUICK_START.md](./QUICK_START.md)
-- **Issues:** Ver [ANALISIS_ISSUES.md](./ANALISIS_ISSUES.md)
-- **Arquitectura:** Ver [DASHBOARD.md](./DASHBOARD.md)
-
----
-
-## 📜 Licencia
-
-Este proyecto es parte de la materia Software Engineering II de la EPCC.
-
----
-
-**Última actualización:** 12 de enero de 2026  
-**Estado:** ⚠️ En Desarrollo (85% completado)
+</div>

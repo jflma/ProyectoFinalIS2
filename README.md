@@ -115,46 +115,8 @@ Universidad Nacional de San Agustín de Arequipa
 
 ### 📐 Diagrama de Clases Principal
 
-```
-┌──────────────────┐       ┌──────────────────┐
-│    ForoUser      │       │      Person      │
-├──────────────────┤       ├──────────────────┤
-│ - id: Long       │ 1   1 │ - id: Long       │
-│ - username: String│◄─────►│ - firstName: String│
-│ - password: String│       │ - lastName: String│
-│ - roles: Set<Role>│       │ - email: String  │
-│ - person: Person │       │ - createAt: Date │
-│ - createAt: Date │       └──────────────────┘
-└────────┬─────────┘
-         │ 1
-         │
-         │ *
-┌────────▼─────────┐       ┌──────────────────┐
-│      Post        │       │      Entry       │
-├──────────────────┤       ├──────────────────┤
-│ - id: Long       │ 1   1 │ - id: Long       │
-│ - title: String  │◄─────►│ - content: String│
-│ - views: Integer │       │ - image: String  │
-│ - user: ForoUser │       │ - createAt: Date │
-│ - entry: Entry   │       └──────────────────┘
-│ - answers: List  │
-│ - createAt: Date │
-└────────┬─────────┘
-         │ 1
-         │
-         │ *
-┌────────▼─────────┐
-│     Answer       │
-├──────────────────┤       ┌──────────────────┐
-│ - id: Long       │ 1   * │    Comment       │
-│ - content: String│◄─────►├──────────────────┤
-│ - user: ForoUser │       │ - id: Long       │
-│ - post: Post     │       │ - content: String│
-│ - comments: List │       │ - user: ForoUser │
-│ - createAt: Date │       │ - answer: Answer │
-└──────────────────┘       │ - createAt: Date │
-                           └──────────────────┘
-```
+<img width="861" height="795" alt="Untitled" src="https://github.com/user-attachments/assets/fda1813f-8fcf-4f2d-beef-122488a8fd8b" />
+
 
 ### 📦 Módulos Principales
 
@@ -383,6 +345,9 @@ El proyecto implementa un pipeline de **Integración y Entrega Continua** utiliz
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+<img width="1787" height="274" alt="image" src="https://github.com/user-attachments/assets/84ed5bb5-3a5a-4488-8f2b-96508cb08c7d" />
+
+
 ### 📋 Etapas del Pipeline
 
 #### 1️⃣ Construcción Automática
@@ -451,7 +416,9 @@ El proyecto utiliza **GitHub Issues** y **GitHub Projects** para el seguimiento 
 - 📝 **Tasks:** Tareas técnicas y de documentación.
 - 🔧 **Improvements:** Mejoras de código existente.
 
-**Tablero Kanban:** [GitHub Projects](https://github.com/jflma/ProyectoFinalIS2/projects)
+**Tablero Kanban:** 
+<img width="1919" height="900" alt="image" src="https://github.com/user-attachments/assets/ee74dcc2-f229-414c-aa03-ea676af789c5" />
+
 
 ---
 

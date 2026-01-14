@@ -40,20 +40,17 @@ pipeline {
                     // Se usa catchError por si el servidor no está disponible.
                     script {
                         try {
-                            withSonarQubeEnv('SonarQube') {
-                                echo 'Ejecutando análisis de calidad de código...'
-                                if (isUnix()) {
-                                    sh './gradlew sonar -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086'
-                                } else {
-                                    bat 'gradlew sonar -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086'
-                                }
+                            // Ejecutamos sonar directamente. El token ya está en backend/sonar-project.properties
+                            // Esto es más robusto y evita errores de configuración en Jenkins.
+                            echo 'Ejecutando análisis de calidad de código...'
+                            if (isUnix()) {
+                                sh './gradlew sonar'
+                            } else {
+                                bat 'gradlew sonar'
                             }
                         } catch (Exception e) {
-                            echo "ERROR CRITICO EN SONARQUBE: ${e.getMessage()}"
-                            echo "POSIBLES CAUSAS:"
-                            echo "1. No has configurado el servidor 'SonarQube' en Administrar Jenkins -> System."
-                            echo "2. SonarQube no esta corriendo en localhost:9000."
-                            echo "3. El token es invalido."
+                            echo "ERROR EN SONARQUBE: ${e.getMessage()}"
+                            // Marcamos como UNSTABLE pero permitimos continuar
                             currentBuild.result = 'UNSTABLE'
                         }
                     }

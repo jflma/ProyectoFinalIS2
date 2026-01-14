@@ -44,9 +44,9 @@ pipeline {
                             // Esto es más robusto y evita errores de configuración en Jenkins.
                             echo 'Ejecutando análisis de calidad de código...'
                             if (isUnix()) {
-                                sh './gradlew sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.projectKey=Proyecto_Final -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086'
+                                sh './gradlew sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.projectKey=Proyecto_Final -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086 -Dsonar.scanner.skipJreProvisioning=true'
                             } else {
-                                bat 'gradlew sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.projectKey=Proyecto_Final -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086'
+                                bat 'gradlew sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.projectKey=Proyecto_Final -Dsonar.token=squ_33a0d8a28428c91b889986d6fef48269ec285086 -Dsonar.scanner.skipJreProvisioning=true'
                             }
                         } catch (Exception e) {
                             echo "ERROR EN SONARQUBE: ${e.getMessage()}"

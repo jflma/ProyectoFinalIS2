@@ -8,7 +8,7 @@ interface Comment {
 
 interface CommentResponse {
   id: number;
-  autorUsername: string;
+  authorUsername: string;
   content: string;
 }
 export class CommentService {

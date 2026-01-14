@@ -33,7 +33,7 @@ public class CommentController {
   }
 
   @PreAuthorize("permitAll()")
-  @GetMapping("/entry/{idEntry}")
+  @GetMapping("/getComments/{idEntry}")
   public ResponseEntity<List<CommentResponseDTO>> getCommentsFromEntry(@PathVariable Long idEntry) {
     List<CommentDetailsDTO> oldList = commentService.getCommentsFromPost(idEntry);
 
@@ -50,7 +50,7 @@ public class CommentController {
   }
 
   @PreAuthorize("hasRole('USER')")
-  @PostMapping
+  @PostMapping("/post")
   public ResponseEntity<CommentResponseDTO> commentPost(@RequestBody CommentPostFieldsDTO fields) {
     Comment comment = commentService.postComment(fields.idPost(), fields.idUser(), fields.content());
 

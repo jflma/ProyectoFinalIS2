@@ -257,11 +257,6 @@ backend/
 
 ### 📖 Documentación OpenAPI / Swagger
 
-La API sigue el estándar **OpenAPI 3.0** y puede visualizarse con Swagger UI en:
-```
-http://localhost:8080/swagger-ui.html
-```
-
 ### 🔐 Módulo: Authentication (`/auth`)
 
 **Propósito:** Gestión de registro, inicio de sesión y tokens JWT.

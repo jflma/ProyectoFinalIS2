@@ -10,21 +10,21 @@ interface Props {
 }
 
 interface Response {
-  id:number;
+  id: number;
   idEntry: number;
   title: string;
   content: string;
-  createdAt:string;
-  username:string;
+  createdAt: string;
+  username: string;
 }
 const getPost = async (id: string) => {
-  const data = await fetch(`http://localhost:8080/post/details/${id}`)
-  const res= await data.json()
+  const data = await fetch(`http://localhost:8081/post/details/${id}`, { cache: 'no-store' })
+  const res = await data.json()
   return res
 }
 
-const PostDetails = async ({params}: Props) => {
-  const res:Response = await getPost(params.postId)
+const PostDetails = async ({ params }: Props) => {
+  const res: Response = await getPost(params.postId)
 
   return (
     <div className='flex justify-center'>
@@ -36,9 +36,9 @@ const PostDetails = async ({params}: Props) => {
             <div className='flex gap-2'><strong>Vistas : </strong><span>{0}</span></div>
           </div>
         </div>
-        <MarkdownPreview content={res.content}/>
+        <MarkdownPreview content={res.content} />
         <div>
-          <Comments idEntry={res.idEntry} postId={res.id}/>
+          <Comments idEntry={res.idEntry} postId={res.id} />
         </div>
       </section>
     </div>

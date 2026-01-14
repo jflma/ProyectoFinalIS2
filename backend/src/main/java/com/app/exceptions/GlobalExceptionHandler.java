@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorDetails> handleUnauthorized(UnauthorizedException ex, WebRequest request) {
     ErrorDetails errorDetails = ErrorDetails.builder().timeStamp(new Date()).message(ex.getMessage())
         .details(request.getDescription(false)).build();
-    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
   }
 
 }

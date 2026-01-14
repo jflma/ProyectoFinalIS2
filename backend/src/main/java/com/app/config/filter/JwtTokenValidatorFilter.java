@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.app.resources.JwtUtil;
+import com.app.modules.auth.util.JwtUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import jakarta.servlet.FilterChain;
@@ -19,16 +19,17 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class JwtTokenValidatorFilter extends OncePerRequestFilter{
+public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
   private JwtUtil jwtUtil;
 
-  public JwtTokenValidatorFilter (JwtUtil jwtUtil) {
+  public JwtTokenValidatorFilter(JwtUtil jwtUtil) {
     this.jwtUtil = jwtUtil;
   }
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
 
     String tokenRequest = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -40,16 +41,18 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter{
       String username = jwtUtil.extractUsername(decodedJWT);
 
       String authoritiesString = jwtUtil.getSpecificClaim(decodedJWT, "authorities").asString();
-      Collection<? extends GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authoritiesString);
+      Collection<? extends GrantedAuthority> authorities = AuthorityUtils
+          .commaSeparatedStringToAuthorityList(authoritiesString);
 
       SecurityContext context = SecurityContextHolder.getContext();
-      UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username,null,authorities);
+      UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null,
+          authorities);
 
       context.setAuthentication(authentication);
       SecurityContextHolder.setContext(context);
     }
     filterChain.doFilter(request, response);
-    
+
   }
 
 }

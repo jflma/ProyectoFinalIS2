@@ -17,8 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.app.config.filter.JwtTokenValidatorFilter;
-import com.app.resources.JwtUtil;
-import com.app.services.implementations.UserService;
+import com.app.modules.auth.util.JwtUtil;
+import com.app.modules.user.service.IUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -27,22 +27,22 @@ public class SecurityConfig {
 
   private JwtUtil jwtUtil;
 
-  public SecurityConfig (JwtUtil jwtUtil) {
+  public SecurityConfig(JwtUtil jwtUtil) {
     this.jwtUtil = jwtUtil;
   }
 
   @Bean
-  public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
-        .csrf(csrf -> csrf.disable() )
+        .csrf(csrf -> csrf.disable())
         .httpBasic(Customizer.withDefaults())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .addFilterBefore(new JwtTokenValidatorFilter(jwtUtil),BasicAuthenticationFilter.class)
+        .addFilterBefore(new JwtTokenValidatorFilter(jwtUtil), BasicAuthenticationFilter.class)
         .build();
   }
 
   @Bean
-  public AuthenticationProvider authenticationProvider(UserService userServiceImp){
+  public AuthenticationProvider authenticationProvider(IUserService userServiceImp) {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
     provider.setPasswordEncoder(passwordEncoder());
     provider.setUserDetailsService(userServiceImp);
@@ -52,12 +52,13 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager (AuthenticationConfiguration authenticationConfiguration) throws Exception {
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+      throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder () {
+  public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 

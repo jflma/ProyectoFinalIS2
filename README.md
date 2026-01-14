@@ -435,7 +435,7 @@ public class AnswerControllerTest extends BaseIntegrationTest {
                 .andExpect(status().isUnauthorized()); // Assuming 401/403 behavior
     }
 }
-
+```
 #### 5️⃣ Pruebas de Seguridad
 - **Framework:** Spring Security Test + OWASP Dependency Check
 - **Comandos:**

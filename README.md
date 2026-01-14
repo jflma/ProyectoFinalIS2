@@ -383,6 +383,58 @@ El proyecto implementa un pipeline de **Integración y Entrega Continua** utiliz
 - **Ejemplos:**
   - `AuthFunctionalTest.java` - Flujo de registro de usuarios
   - `PostFunctionalTest.java` - Flujo de creación de posts
+```java
+public class AnswerControllerTest extends BaseIntegrationTest {
+
+    @MockBean
+    private IAnswerService answerService;
+
+    @Test
+    @WithMockUser(username = "user", roles = { "USER" })
+    void testCreateAnswerSuccess() throws Exception {
+        CreateAnswerFieldsDTO fields = new CreateAnswerFieldsDTO(1L, "This is an answer");
+
+        Person person = Person.builder().firstName("John").lastName("Doe").build();
+        ForoUser user = ForoUser.builder().id(2L).username("user").person(person).build();
+
+        Post post = Post.builder().id(1L).title("Test Post").build();
+
+        Entry entry = Entry.builder()
+                .id(10L)
+                .content("This is an answer")
+                .user(user)
+                .createdAt(LocalDateTime.now())
+                .upVotes(0)
+                .downVotes(0)
+                .build();
+
+        Answer answer = Answer.builder()
+                .id(100L)
+                .entry(entry)
+                .post(post)
+                .build();
+
+        when(answerService.createAnswer(anyLong(), anyString())).thenReturn(answer);
+
+        mockMvc.perform(post("/answer")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(fields)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(100))
+                .andExpect(jsonPath("$.content").value("This is an answer"))
+                .andExpect(jsonPath("$.postId").value(1));
+    }
+
+    @Test
+    void testCreateAnswerUnauthorized() throws Exception {
+        CreateAnswerFieldsDTO fields = new CreateAnswerFieldsDTO(1L, "This is an answer");
+
+        mockMvc.perform(post("/answer")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(fields)))
+                .andExpect(status().isUnauthorized()); // Assuming 401/403 behavior
+    }
+}
 
 #### 5️⃣ Pruebas de Seguridad
 - **Framework:** Spring Security Test + OWASP Dependency Check
